@@ -20,9 +20,9 @@ public final class GenExecute {
     public static void main(String[] args) {
         DbMessageInfo dbMessageInfo = new DbMessageInfo();
         // TODO 此处配置数据库连接信息
-        dbMessageInfo.setUrl("");
-        dbMessageInfo.setUsername("");
-        dbMessageInfo.setPassword("");
+        dbMessageInfo.setUrl("jdbc:mysql://127.0.0.1:3306/authserver-lifetime?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC");
+        dbMessageInfo.setUsername("root");
+        dbMessageInfo.setPassword("123456");
         GenConfig genConfig = new GenConfig();
         genConfig.setDbMessageInfo(dbMessageInfo);
 
@@ -34,26 +34,26 @@ public final class GenExecute {
 
     private static void genDefault(GenConfig genConfig) {
         //需要生成代码的表名
-        String tableName = "test_apply";
+        String tableName = "lifetime_oauth_client";
         log.info("生成代码的表名是....{}", tableName);
         genConfig.setTableName(tableName);
         //自定义表备注
 //        genConfig.setComments("架构师");
         //表名前缀
-        genConfig.setTablePrefix("test_");
+        genConfig.setTablePrefix("lifetime_");
         //包名-在模板中的import 使用此出配置的包名路径
-        genConfig.setEntity("com.code.domain.entity");
+        genConfig.setEntity("com.after.entity");
         genConfig.setXml("mapper");
-        genConfig.setMapper("com.code.infra.mapper");
-        genConfig.setRepository("com.code.domain.repository");
-        genConfig.setRepositoryImpl("com.code.domain.repository.impl");
-        genConfig.setService("com.code.app.service");
-        genConfig.setServiceImpl("com.code.app.service.impl");
-        genConfig.setController("com.code.api.controller.v1");
+        genConfig.setMapper("com.after.mapper");
+        genConfig.setRepository("com.after.repository");
+        genConfig.setRepositoryImpl("com.after.repository.impl");
+        genConfig.setService("com.after.service");
+        genConfig.setServiceImpl("com.after.service.impl");
+        genConfig.setController("com.after.controller");
         //生成的路径
         genConfig.setGenPath("D:\\gen_code");
         //使用特定的目录下的模板
-        genConfig.setSpecialTemplate("test");
+//        genConfig.setSpecialTemplate("test");
         genConfig.setAuthor("code@code.com");
         log.info("生成代码的基本信息是....{}", JSON.toJSON(genConfig));
         GenService genService = new GenService();
