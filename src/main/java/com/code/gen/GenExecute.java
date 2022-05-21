@@ -25,16 +25,18 @@ public final class GenExecute {
         dbMessageInfo.setPassword("123456");
         GenConfig genConfig = new GenConfig();
         genConfig.setDbMessageInfo(dbMessageInfo);
-
+        //配置生成的信息
         genDefault(genConfig);
-
+        log.info("生成代码的基本信息是....{}", JSON.toJSON(genConfig));
+        GenService genService = new GenService();
+        genService.genCode(genConfig);
         log.info("Success....");
         log.warn("注意使用360压缩打开文件，对于winrar软件打不开者，请下载并安装   360 压缩软件  并打开。。");
     }
 
     private static void genDefault(GenConfig genConfig) {
         //需要生成代码的表名
-        String tableName = "lifetime_oauth_client";
+        String tableName = "lifetime_user_group";
         log.info("生成代码的表名是....{}", tableName);
         genConfig.setTableName(tableName);
         //自定义表备注
@@ -55,9 +57,6 @@ public final class GenExecute {
         //使用特定的目录下的模板
 //        genConfig.setSpecialTemplate("test");
         genConfig.setAuthor("code@code.com");
-        log.info("生成代码的基本信息是....{}", JSON.toJSON(genConfig));
-        GenService genService = new GenService();
-        genService.genCode(genConfig);
     }
 
 

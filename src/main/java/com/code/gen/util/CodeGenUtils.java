@@ -7,7 +7,6 @@ import cn.hutool.core.util.StrUtil;
 import com.code.gen.config.GenConfig;
 import com.code.gen.mapper.entity.ColumnEntity;
 import com.code.gen.mapper.entity.TableEntity;
-import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
@@ -28,6 +27,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -47,7 +47,7 @@ public class CodeGenUtils {
 
     private final String MAPPER_XML_VM = "Mapper.xml.vm";
 
-    private final String MAPPER_XML_SUFFIX = MAPPER_XML_VM.substring(0, MAPPER_XML_VM.lastIndexOf("." ));
+    private final String MAPPER_XML_SUFFIX = MAPPER_XML_VM.substring(0, MAPPER_XML_VM.lastIndexOf("."));
 
     private final String JAVA_SUFFIX = ".java";
 
@@ -55,15 +55,14 @@ public class CodeGenUtils {
 
     private String finalClassPathTemplatePath = "";
 
-    private final String[] REMOVE_COLUMN_LIST = new String[]{"createdTime","createdByUser","createdByEmp","updatedTime","updatedByUser","updatedByEmp"};
+    private final String[] REMOVE_COLUMN_LIST = new String[]{"createdTime", "createdByUser", "createdByEmp", "updatedTime", "updatedByUser", "updatedByEmp"};
 
 
     /**
      * 生成代码
      */
-    @SneakyThrows
     public void generatorCode(GenConfig genConfig, Map<String, Object> table,
-                              List<Map<String, Object>> columns, ZipOutputStream zip) {
+                              List<Map<String, Object>> columns, ZipOutputStream zip) throws IOException, InvocationTargetException, IllegalAccessException {
         // 配置信息-数据库字段与java的的对应关系信息
         Configuration config = getConfig();
         // 表信息
@@ -89,9 +88,9 @@ public class CodeGenUtils {
             columnEntity.setLowerAttrName(StringUtils.uncapitalize(attrName));
             columnEntity.setCapitalAttrName(columnEntity.getColumnName().toUpperCase());
             // 列的数据类型，转换成Java类型
-            columnEntity.setAttrType(config.getString(columnEntity.getDataType(), "unknowType" ));
+            columnEntity.setAttrType(config.getString(columnEntity.getDataType(), "unknowType"));
             // 是否主键
-            if (priCount == 1 && "PRI".equalsIgnoreCase((String) column.get("columnKey" )) && tableEntity.getPk() == null) {
+            if (priCount == 1 && "PRI".equalsIgnoreCase((String) column.get("columnKey")) && tableEntity.getPk() == null) {
                 tableEntity.setPk(columnEntity);
                 ++priCount;
             }
@@ -99,7 +98,7 @@ public class CodeGenUtils {
         }
         tableEntity.setColumns(columnList);
         List<ColumnEntity> entityList = columnList.stream()
-                .filter(column ->!Arrays.asList(REMOVE_COLUMN_LIST).contains(column.getLowerAttrName()))
+                .filter(column -> !Arrays.asList(REMOVE_COLUMN_LIST).contains(column.getLowerAttrName()))
                 .collect(Collectors.toList());
         tableEntity.setColumnList(entityList);
         // 没主键，则第一个字段为主键
@@ -120,7 +119,7 @@ public class CodeGenUtils {
      * 列名转换成Java属性名
      */
     public String columnToJava(String columnName) {
-        return WordUtils.capitalizeFully(columnName, new char[]{'_'}).replace("_", "" );
+        return WordUtils.capitalizeFully(columnName, new char[]{'_'}).replace("_", "");
     }
 
     /**
@@ -128,7 +127,7 @@ public class CodeGenUtils {
      */
     private String tableToJava(String tableName, String tablePrefix) {
         if (StringUtils.isNotBlank(tablePrefix)) {
-            tableName = tableName.replaceFirst(tablePrefix, "" );
+            tableName = tableName.replaceFirst(tablePrefix, "");
         }
         return columnToJava(tableName);
     }
@@ -138,7 +137,7 @@ public class CodeGenUtils {
      */
     private Configuration getConfig() {
         try {
-            return new PropertiesConfiguration("generator.properties" );
+            return new PropertiesConfiguration("generator.properties");
         } catch (ConfigurationException e) {
             throw new RuntimeException("获取配置文件失败");
         }
@@ -223,11 +222,12 @@ public class CodeGenUtils {
         }
         classPathTemplatePath = path + classPathTemplatePath;
         File file = new File(classPathTemplatePath);
-        Assert.notNull(file, "读取文件目录失败。" );
+        Assert.notNull(file, "读取文件目录失败。");
         File[] files = file.listFiles();
-        Assert.notNull(files, "读取文件目录失败。" );
+        Assert.notNull(files, "读取文件目录失败。");
+        assert files != null;
         return Arrays.stream(files).filter(File::isFile).map(File::getAbsolutePath)
-                .map(templatePath -> finalClassPathTemplatePath + templatePath.substring(templatePath.lastIndexOf("\\" ) + 1))
+                .map(templatePath -> finalClassPathTemplatePath + templatePath.substring(templatePath.lastIndexOf("\\") + 1))
                 .collect(Collectors.toList());
     }
 
