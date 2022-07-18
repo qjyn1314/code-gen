@@ -2,7 +2,7 @@ package ${serviceImpl};
 
 import ${entity}.${className};
 import ${mapper}.${className}Mapper;
-import ${service}.${className}Service;
+import ${service}.${className}Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @date ${datetime}
  */
 @Service
-public class ${className}ServiceImpl implements ${className}Service {
+public class ${className}RepositoryImpl implements ${className}Repository {
 
     @Autowired
     private ${className}Mapper mapper;

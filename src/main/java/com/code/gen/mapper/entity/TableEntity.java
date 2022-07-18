@@ -26,12 +26,12 @@ public class TableEntity {
     private ColumnEntity pk;
 
     /**
-     * 列名
+     * 所有的列名
      */
     private List<ColumnEntity> columns;
 
     /**
-     * 列名
+     * 去除了一些审计字段的所有列名
      */
     private List<ColumnEntity> columnList;
 

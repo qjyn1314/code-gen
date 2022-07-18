@@ -20,8 +20,6 @@ import java.io.Serializable;
 @TableName("${tableName}")
 public class ${className} implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     #foreach ($column in $columns)
 /**
      * $column.comments
