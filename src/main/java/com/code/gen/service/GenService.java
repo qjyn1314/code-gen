@@ -6,7 +6,6 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.CharsetUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.code.gen.config.DbMessageInfo;
 import com.code.gen.config.GenConfig;
@@ -37,6 +36,9 @@ import java.util.zip.ZipOutputStream;
 @Slf4j
 public class GenService {
 
+    public static final String MYSQL = "mysql";
+    public static final String POSTGRESQL = "postgresql";
+
     private GenMapper getGenMapper(GenConfig genConfig) {
         DbMessageInfo dbMessageInfo = genConfig.getDbMessageInfo();
         return SqlSessionService.me().handleSession(dbMessageInfo, GenMapper.class).getMapper(GenMapper.class);
@@ -44,10 +46,26 @@ public class GenService {
 
     public void genCode(GenConfig genConfig) {
         GenMapper genMapper = getGenMapper(genConfig);
-
         String tableName = genConfig.getTableName();
         Assert.notBlank(tableName, "请使用正确的表名。");
 
+        DbMessageInfo dbMessageInfo = genConfig.getDbMessageInfo();
+        String dbUrl = dbMessageInfo.getUrl();
+
+        //当前数据连接中包含了pgsql则查询pgsql
+        if (dbUrl.contains(POSTGRESQL)) {
+            Map<String, Object> table = genMapper.queryPgSqlTable(tableName);
+            Assert.notNull(table, "未查找到表信息。");
+            log.info("表信息是...{}", JSONUtil.toJsonStr(table));
+
+            List<Map<String, Object>> columns = genMapper.queryPgSqlColumns(tableName);
+            log.info("表的列信息是...{}", JSONUtil.toJsonStr(columns));
+
+            genZipOutStream(genConfig, table, columns);
+            return;
+        }
+
+        //默认查询mysql数据库信息
         Map<String, Object> table = genMapper.queryTable(tableName);
         Assert.notNull(table, "未查找到表信息。");
         log.info("表信息是...{}", JSONUtil.toJsonStr(table));
@@ -64,7 +82,7 @@ public class GenService {
                                  List<Map<String, Object>> columns) {
 
         Map<String, Object> templateDataMap = CodeGenUtils.getTemplateData(genConfig, table, columns);
-
+        log.info("templateDataMap_{}",JSONUtil.toJsonStr(templateDataMap));
         List<String> filledOutTemplateList = CodeGenUtils.fillingTemplate(genConfig, templateDataMap);
         Assert.notEmpty(filledOutTemplateList, "获取不到模板文件。");
 

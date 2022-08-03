@@ -1,0 +1,19 @@
+package ${mapper};
+
+import java.util.List;
+
+import ${entity}.${className};
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
+
+/**
+ * ${comments} 持久
+ *
+ * @author ${author} ${datetime}
+ */
+@Repository
+public interface ${className}Mapper extends BaseMapper<${className}> {
+
+    List<${className}> page(${className} ${classname});
+
+}

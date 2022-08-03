@@ -78,11 +78,11 @@ public class CodeGenUtils {
                                                       List<Map<String, Object>> columns) {
         TableEntity tableEntity = BeanUtil.fillBeanWithMap(table, new TableEntity(), false);
         tableEntity.setComments(genConfig.getComments());
-        String className = tableToJava(tableEntity.getTableName(), genConfig.getTablePrefix());
+        String className = tableToJava(tableEntity.getTablename(), genConfig.getTablePrefix());
         log.debug("生成的Java类名...{}", className);
         tableEntity.setClassName(className);
         tableEntity.setLowerClassname(StringUtils.uncapitalize(className));
-        tableEntity.setPathName(tableToRequestPath(tableEntity.getTableName(), genConfig.getTablePrefix()));
+        tableEntity.setPathName(tableToRequestPath(tableEntity.getTablename(), genConfig.getTablePrefix()));
         Setting configSetting = getConfig();
         // 列信息
         List<ColumnEntity> columnList = new ArrayList<>();
@@ -90,14 +90,14 @@ public class CodeGenUtils {
         for (Map<String, Object> column : columns) {
             ColumnEntity columnEntity = BeanUtil.fillBeanWithMap(column, new ColumnEntity(), false);
             // 列名转换成Java属性名
-            String attrName = columnToJava(columnEntity.getColumnName());
+            String attrName = columnToJava(columnEntity.getColumnname());
             columnEntity.setCaseAttrName(attrName);
             columnEntity.setLowerAttrName(StringUtils.uncapitalize(attrName));
-            columnEntity.setCapitalAttrName(columnEntity.getColumnName().toUpperCase());
+            columnEntity.setCapitalAttrName(columnEntity.getColumnname().toUpperCase());
             // 列的数据类型，转换成Java类型
-            columnEntity.setAttrType(configSetting.getStr(columnEntity.getDataType(), "unknowType"));
+            columnEntity.setAttrType(configSetting.getStr(columnEntity.getDatatype(), "unknowType"));
             // 是否主键
-            if (priCount == 1 && "PRI".equalsIgnoreCase((String) column.get("columnKey")) && tableEntity.getPk() == null) {
+            if (priCount == 1 && "PRI".equalsIgnoreCase((String) column.get("columnkey")) && tableEntity.getPk() == null) {
                 tableEntity.setPk(columnEntity);
                 ++priCount;
             }

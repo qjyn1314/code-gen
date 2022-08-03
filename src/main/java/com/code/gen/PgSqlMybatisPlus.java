@@ -68,7 +68,7 @@ public class PgSqlMybatisPlus {
         sc.setRestControllerStyle(true);
         sc.setControllerMappingHyphenStyle(true);
 
-//        sc.setLogicDeleteFieldName("deleted");//设置逻辑删除
+        sc.setLogicDeleteFieldName("is_delete");//设置逻辑删除
 
         //设置自动填充配置
         TableFill gmt_create = new TableFill("create_time", FieldFill.INSERT);

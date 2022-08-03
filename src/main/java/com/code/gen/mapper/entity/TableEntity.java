@@ -13,7 +13,7 @@ public class TableEntity {
     /**
      * 名称
      */
-    private String tableName;
+    private String tablename;
 
     /**
      * 备注

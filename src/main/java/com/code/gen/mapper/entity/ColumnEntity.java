@@ -11,12 +11,12 @@ public class ColumnEntity {
     /**
      * 列表
      */
-    private String columnName;
+    private String columnname;
 
     /**
      * 数据类型
      */
-    private String dataType;
+    private String datatype;
 
     /**
      * 备注
