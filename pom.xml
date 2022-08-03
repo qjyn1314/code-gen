@@ -11,6 +11,7 @@
     <properties>
         <java.version>11</java.version>
         <mysql.version>8.0.28</mysql.version>
+        <postgresql.version>42.4.0</postgresql.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <druid.version>1.2.9</druid.version>
         <velocity.version>1.7</velocity.version>
@@ -28,6 +29,12 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -53,6 +60,13 @@
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
         </dependency>
+        <!-- ##################### -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.0.5</version>
+        </dependency>
+        <!-- ##################### -->
     </dependencies>
 
     <build>
