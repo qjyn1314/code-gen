@@ -1,10 +1,21 @@
 package ${serviceImpl};
 
+import cn.hutool.core.convert.Convert;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.scdq.env.yjgl.config.proxy.AopProxyDecorate;
+import ${entity}.${className}DTO;
 import ${entity}.${className};
 import ${mapper}.${className}Mapper;
 import ${service}.${className}Service;
-import org.springframework.stereotype.Service;
+import ${entity}.${className}VO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * ${comments}
@@ -13,11 +24,50 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @date ${datetime}
  */
 @Service
-public class ${className}ServiceImpl implements ${className}Service {
+public class ${className}ServiceImpl implements ${className}Service, AopProxyDecorate<${className}Service>  {
 
     @Autowired
-    private ${className}Mapper mapper;
+    private ${className}Mapper ${classname}Mapper;
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ${className} save(${className} ${classname}) {
+
+        int insert = ${classname}Mapper.insert(${classname});
+
+        return ${classname};
+    }
+
+    @Override
+    public PageInfo<${className}VO> page(${className}DTO ${classname}) {
+        return PageHelper.startPage(${classname}.getPageNum(), ${classname}.getPageSize()).doSelectPageInfo(() -> {
+            this.self().listByParam(${classname});
+        });
+    }
+
+    @Override
+    public List<${className}VO> listByParam(${className}DTO ${classname}) {
+        return ${classname}Mapper.listByParam(${classname});
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Integer update(${className} ${classname}) {
+        return ${classname}Mapper.updateById(${classname});
+    }
+
+    @Override
+    public ${className}VO detailById(Long id) {
+        ${className} ${classname} = ${classname}Mapper.selectById(id);
+        return Convert.convert(${className}VO.class, ${classname});
+    }
+
+    @Override
+    public ${className}VO detailByParam(${className}DTO ${classname}Param) {
+        LambdaQueryWrapper<${className}> queryWrapper = Wrappers.lambdaQuery(${className}.class);
+        ${className} ${classname} = ${classname}Mapper.selectOne(queryWrapper);
+        return Convert.convert(${className}VO.class, ${classname});
+    }
 
 
 }

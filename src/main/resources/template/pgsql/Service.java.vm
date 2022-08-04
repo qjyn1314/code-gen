@@ -1,14 +1,50 @@
 package ${service};
 
+import com.github.pagehelper.PageInfo;
 import ${entity}.${className};
+import ${entity}.${className}DTO;
+import ${entity}.${className}VO;
+
+import java.util.List;
 
 /**
- * ${comments}
+ * ${comments} 服务类
  *
  * @author ${author}
  * @date ${datetime}
  */
 public interface ${className}Service {
+
+
+    /**
+     * 保存信息
+     */
+     ${className} save(${className} ${classname});
+
+    /**
+     * 列表查询
+     */
+    PageInfo<${className}VO> page(${className}DTO ${classname});
+
+    /**
+     * 列表查询
+     */
+    List<${className}VO> listByParam(${className}DTO ${classname});
+
+    /**
+     * 更新
+     */
+    Integer update(${className} ${classname});
+
+    /**
+     * 通过id查询信息
+     */
+    ${className}VO detailById(Long id);
+
+    /**
+     * 通过多个参数查询信息
+     */
+    ${className}VO detailByParam(${className}DTO ${classname});
 
 
 }

@@ -43,7 +43,7 @@ public final class GenExecute {
 
     private static void genDefaultByPgSql(GenConfig genConfig) {
         //需要生成代码的表名
-        String tableName = "company_risk_info";
+        String tableName = "company_info";
         log.info("生成代码的表名是....{}", tableName);
         genConfig.setTableName(tableName);
         //自定义表备注

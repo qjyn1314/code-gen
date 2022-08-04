@@ -19,7 +19,6 @@ import java.io.Serializable;
  * @date ${datetime}
  */
 @Data
-@TableName("${tablename}")
 public class ${className} implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,7 +31,7 @@ public class ${className} implements Serializable {
 /**
      * $column.comments
      */
-private $column.attrType $column.lowerAttrName;
+    private $column.attrType $column.lowerAttrName;
     #end
 
 }
