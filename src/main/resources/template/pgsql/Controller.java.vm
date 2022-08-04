@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * ${comments} 前端控制层
  *
- * @author ${author}
- * @date ${datetime}
+ * @author ${author} ${datetime}
  */
 @RestController
 @RequestMapping("/${pathName}" )

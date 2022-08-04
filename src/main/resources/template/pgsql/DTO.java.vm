@@ -15,8 +15,7 @@ import java.io.Serializable;
 /**
  * ${comments}
  *
- * @author ${author}
- * @date ${datetime}
+ * @author ${author} ${datetime}
  */
 @Data
 public class ${className} implements Serializable {

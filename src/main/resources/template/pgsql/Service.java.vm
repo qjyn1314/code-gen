@@ -10,8 +10,7 @@ import java.util.List;
 /**
  * ${comments} 服务类
  *
- * @author ${author}
- * @date ${datetime}
+ * @author ${author} ${datetime}
  */
 public interface ${className}Service {
 

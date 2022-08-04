@@ -62,7 +62,7 @@ public final class GenExecute {
         genConfig.setServiceImpl("com.after.service.impl");
         genConfig.setController("com.after.controller");
         //生成的路径
-        genConfig.setGenPath("D:\\workspace\\gen_code");
+        genConfig.setGenPath("D://workspace//gen_code");
         //使用特定的目录下的模板
         genConfig.setSpecialTemplate("pgsql");
         genConfig.setAuthor("code@code.com");
@@ -104,7 +104,7 @@ public final class GenExecute {
         genConfig.setServiceImpl("com.after.service.impl");
         genConfig.setController("com.after.controller");
         //生成的路径
-        genConfig.setGenPath("D:\\workspace\\gen_code");
+        genConfig.setGenPath("D://workspace//gen_code");
         //使用特定的目录下的模板
         genConfig.setSpecialTemplate("test");
         genConfig.setAuthor("code@code.com");

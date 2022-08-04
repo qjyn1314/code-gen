@@ -20,8 +20,7 @@ import java.util.List;
 /**
  * ${comments}
  *
- * @author ${author}
- * @date ${datetime}
+ * @author ${author} ${datetime}
  */
 @Service
 public class ${className}ServiceImpl implements ${className}Service, AopProxyDecorate<${className}Service>  {
