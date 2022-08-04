@@ -51,16 +51,16 @@ public final class GenExecute {
         //表名前缀
         genConfig.setTablePrefix("test");
         //包名-在模板中的import 使用此出配置的包名路径
-        genConfig.setEntity("com.after.entity");
-        genConfig.setVO("com.after.entity");
-        genConfig.setDTO("com.after.entity");
+        genConfig.setEntity("com.scdq.env.yjgl.entity");
+        genConfig.setVO("com.scdq.env.yjgl.vo");
+        genConfig.setDTO("com.scdq.env.yjgl.dto");
         genConfig.setXml("mapper");
-        genConfig.setMapper("com.after.mapper");
+        genConfig.setMapper("com.scdq.env.yjgl.mapper");
         genConfig.setRepository("com.after.repository");
         genConfig.setRepositoryImpl("com.after.repository.impl");
-        genConfig.setService("com.after.service");
-        genConfig.setServiceImpl("com.after.service.impl");
-        genConfig.setController("com.after.controller");
+        genConfig.setService("com.scdq.env.yjgl.service");
+        genConfig.setServiceImpl("com.scdq.env.yjgl.service.impl");
+        genConfig.setController("com.scdq.env.yjgl.controller");
         //生成的路径
         genConfig.setGenPath("D://workspace//gen_code");
         //使用特定的目录下的模板

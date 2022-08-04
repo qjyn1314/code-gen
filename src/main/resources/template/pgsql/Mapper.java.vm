@@ -2,9 +2,9 @@ package ${mapper};
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
-import ${entity}.${className}DTO;
+import ${DTO}.${className}DTO;
 import ${entity}.${className};
-import ${entity}.${className}VO;
+import ${VO}.${className}VO;
 import org.apache.ibatis.annotations.ResultType;
 import org.apache.ibatis.annotations.Select;
 
@@ -19,14 +19,8 @@ import java.util.List;
 public interface ${className}Mapper extends BaseMapper<${className}> {
 
     @ResultType(${className}VO.class)
-    @Select(value = "select " +
-            "#foreach($column in $columns)
-            #if(${foreach.count}==$columns.size())
-                    t1.${column.columnname}
-            #else
-                    t1.${column.columnname},
-            #end
-            #end" +
+    @Select(value = "select"+
+        " #foreach($column in $columns) #if(${foreach.count}==$columns.size()) t1.${column.columnname} #else t1.${column.columnname}, #end #end"+
             " from ${tablename} t1")
     List<${className}VO> listByParam(${className}DTO ${classname});
 

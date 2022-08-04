@@ -18,7 +18,7 @@ import java.io.Serializable;
  * @author ${author} ${datetime}
  */
 @Data
-public class ${className} implements Serializable {
+public class ${className}VO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

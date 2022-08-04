@@ -1,8 +1,9 @@
 package ${controller};
 
+import com.scdq.env.common.vo.Result;
 import ${entity}.${className};
-import ${entity}.${className}DTO;
-import ${entity}.${className}VO;
+import ${DTO}.${className}DTO;
+import ${VO}.${className}VO;
 import ${service}.${className}Service;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
  *
  * @author ${author} ${datetime}
  */
+@Slf4j
 @RestController
 @RequestMapping("/${pathName}" )
 @Api(tags = "${comments}")
@@ -25,31 +27,31 @@ public class ${className}Controller {
     private ${className}Service ${classname}Service;
 
     @PostMapping("/save")
-    @ApiOperation("${comments}-保存")
-    public Result save(@RequestBody ${className} ${classname}) {
+    @ApiOperation("保存-${comments}")
+    public Result save(@RequestBody ${className}DTO ${classname}) {
         return Result.success(${classname}Service.save(${classname}));
     }
 
     @PostMapping("/page")
-    @ApiOperation("${comments}-分页列表")
+    @ApiOperation("分页列表-${comments}")
     public Result page(@RequestBody ${className}DTO ${classname}) {
         return Result.success(${classname}Service.page(${classname}));
     }
 
     @PostMapping("/update")
-    @ApiOperation("${comments}-更新")
+    @ApiOperation("更新-${comments}")
     public Result update(@RequestBody ${className} ${classname}) {
         return Result.success(${classname}Service.update(${classname}));
     }
 
     @PostMapping("/detail/{id}")
-    @ApiOperation("${comments}-通过id查询信息")
+    @ApiOperation("通过id查询信息-${comments}")
     public Result detailById(@PathVariable Long id) {
         return Result.success(${classname}Service.detailById(id));
     }
 
     @PostMapping("/detail")
-    @ApiOperation("${comments}-通过更多参数查询信息")
+    @ApiOperation("通过更多参数查询信息-${comments}")
     public Result detailByParam(@RequestBody ${className}DTO ${classname}) {
         return Result.success(${classname}Service.detailByParam(${classname}));
     }

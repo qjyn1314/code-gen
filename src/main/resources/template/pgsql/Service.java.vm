@@ -2,8 +2,8 @@ package ${service};
 
 import com.github.pagehelper.PageInfo;
 import ${entity}.${className};
-import ${entity}.${className}DTO;
-import ${entity}.${className}VO;
+import ${DTO}.${className}DTO;
+import ${VO}.${className}VO;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public interface ${className}Service {
     /**
      * 保存信息
      */
-     ${className} save(${className} ${classname});
+     ${className}DTO save(${className}DTO ${classname});
 
     /**
      * 列表查询

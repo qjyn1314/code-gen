@@ -6,11 +6,11 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.scdq.env.yjgl.config.proxy.AopProxyDecorate;
-import ${entity}.${className}DTO;
+import ${DTO}.${className}DTO;
 import ${entity}.${className};
 import ${mapper}.${className}Mapper;
 import ${service}.${className}Service;
-import ${entity}.${className}VO;
+import ${VO}.${className}VO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,9 +30,11 @@ public class ${className}ServiceImpl implements ${className}Service, AopProxyDec
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ${className} save(${className} ${classname}) {
+    public ${className}DTO save(${className}DTO ${classname}) {
 
-        int insert = ${classname}Mapper.insert(${classname});
+        ${className}  ${classname}Insert = Convert.convert(${className}.class, ${classname});
+
+        int insert = ${classname}Mapper.insert(${classname}Insert);
 
         return ${classname};
     }
