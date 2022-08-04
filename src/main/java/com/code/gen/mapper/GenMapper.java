@@ -21,7 +21,7 @@ public interface GenMapper {
      *
      * @param tableName 表名称
      */
-    @Select("select table_name AS tablename, engine, table_comment as comments, NOW() datetime from information_schema.tables " +
+    @Select("select table_name AS tableName, engine, table_comment as comments, NOW() datetime from information_schema.tables " +
             " where table_schema = (select database()) and table_name = #{tableName}" )
     Map<String, Object> queryTable(@Param("tableName") String tableName);
 
@@ -38,8 +38,8 @@ public interface GenMapper {
      *
      * @param tableName 表名称
      */
-    @Select("select column_name columnname, data_type datatype, column_comment comments, column_key columnkey, extra ," +
-            "is_nullable as isNullable,column_type as columntype from information_schema.columns " +
+    @Select("select column_name columnName, data_type dataType, column_comment comments, column_key columnKey, extra ," +
+            "is_nullable as isNullable,column_type as columnType from information_schema.columns " +
             " where table_name = #{tableName} and table_schema = (select database()) order by ordinal_position" )
     List<Map<String, Object>> queryColumns(@Param("tableName") String tableName);
 

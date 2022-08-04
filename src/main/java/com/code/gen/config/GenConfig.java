@@ -71,6 +71,14 @@ public class GenConfig implements Serializable {
      */
     private String xml;
     /**
+     * Mapper XML包名
+     */
+    private String DTO;
+    /**
+     * Mapper XML包名
+     */
+    private String VO;
+    /**
      * template 文件夹下其他的模板使用
      */
     private String specialTemplate;

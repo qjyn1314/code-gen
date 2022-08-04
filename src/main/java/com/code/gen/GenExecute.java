@@ -52,6 +52,8 @@ public final class GenExecute {
         genConfig.setTablePrefix("test");
         //包名-在模板中的import 使用此出配置的包名路径
         genConfig.setEntity("com.after.entity");
+        genConfig.setVO("com.after.entity");
+        genConfig.setDTO("com.after.entity");
         genConfig.setXml("mapper");
         genConfig.setMapper("com.after.mapper");
         genConfig.setRepository("com.after.repository");
@@ -60,7 +62,7 @@ public final class GenExecute {
         genConfig.setServiceImpl("com.after.service.impl");
         genConfig.setController("com.after.controller");
         //生成的路径
-        genConfig.setGenPath("D://gen_code");
+        genConfig.setGenPath("D:\\workspace\\gen_code");
         //使用特定的目录下的模板
         genConfig.setSpecialTemplate("pgsql");
         genConfig.setAuthor("code@code.com");
@@ -102,7 +104,7 @@ public final class GenExecute {
         genConfig.setServiceImpl("com.after.service.impl");
         genConfig.setController("com.after.controller");
         //生成的路径
-        genConfig.setGenPath("D://gen_code");
+        genConfig.setGenPath("D:\\workspace\\gen_code");
         //使用特定的目录下的模板
         genConfig.setSpecialTemplate("test");
         genConfig.setAuthor("code@code.com");

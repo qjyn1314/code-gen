@@ -97,7 +97,9 @@ public class CodeGenUtils {
             // 列的数据类型，转换成Java类型
             columnEntity.setAttrType(configSetting.getStr(columnEntity.getDatatype(), "unknowType"));
             // 是否主键
-            if (priCount == 1 && "PRI".equalsIgnoreCase((String) column.get("columnkey")) && tableEntity.getPk() == null) {
+            if (priCount == 1
+                    && ("PRI".equalsIgnoreCase((String) column.get("columnkey")) || "PRI".equalsIgnoreCase((String) column.get("columnKey")))
+                    && tableEntity.getPk() == null) {
                 tableEntity.setPk(columnEntity);
                 ++priCount;
             }
