@@ -43,13 +43,13 @@ public final class GenExecute {
 
     private static void genDefaultByPgSql(GenConfig genConfig) {
         //需要生成代码的表名
-        String tableName = "company_info";
+        String tableName = "company_basic";
         log.info("生成代码的表名是....{}", tableName);
         genConfig.setTableName(tableName);
         //自定义表备注
-        genConfig.setComments("企业风险信息管理表");
+        genConfig.setComments("企业预案计划表");
         //表名前缀
-        genConfig.setTablePrefix("test");
+        genConfig.setTablePrefix("");
         //包名-在模板中的import 使用此出配置的包名路径
         genConfig.setEntity("com.scdq.env.yjgl.entity");
         genConfig.setVO("com.scdq.env.yjgl.vo");

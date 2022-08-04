@@ -1,13 +1,15 @@
 package ${entity};
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 #if(${hasBigDecimal})
 import java.math.BigDecimal;
 #end
+import java.math.BigDecimal;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -24,13 +26,29 @@ public class ${className} implements Serializable {
     private static final long serialVersionUID = 1L;
 
     #foreach ($column in $columns)
-/**
+
+    /**
      * $column.comments
      */
     #if($column.columnname == $pk.columnname)
-@TableId(value = "$pk.columnname", type = IdType.AUTO)
+    @TableId(value = "$pk.columnname")
     #end
-private $column.attrType $column.lowerAttrName;
+    #if($column.lowerAttrName == 'createTime')
+@TableField(fill = FieldFill.INSERT)
+    #end
+    #if($column.lowerAttrName == 'updateTime')
+@TableField(fill = FieldFill.INSERT)
+    #end
+    #if($column.lowerAttrName == 'isDelete')
+@TableLogic(value = "0",delval = "1")
+    #end
+    #if($column.attrType == 'LocalDateTime')
+@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    #end
+    @ApiModelProperty(value = "$column.comments")
+    private $column.attrType $column.lowerAttrName;
+
     #end
 
 }
