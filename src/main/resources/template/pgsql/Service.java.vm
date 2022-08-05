@@ -31,6 +31,11 @@ public interface ${className}Service {
     List<${className}VO> listByParam(${className}DTO ${classname});
 
     /**
+     * lambda表达式的条件列表查询
+     */
+    List<${className}VO> allListByParam(${className}DTO ${classname});
+
+    /**
      * 更新
      */
     Integer update(${className} ${classname});

@@ -10,6 +10,7 @@ import ${DTO}.${className}DTO;
 import ${entity}.${className};
 import ${mapper}.${className}Mapper;
 import ${service}.${className}Service;
+import com.scdq.env.yjgl.util.Wraps;
 import ${VO}.${className}VO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,15 @@ public class ${className}ServiceImpl implements ${className}Service, AopProxyDec
     @Override
     public List<${className}VO> listByParam(${className}DTO ${classname}) {
         return ${classname}Mapper.listByParam(${classname});
+    }
+
+    @Override
+    public List<${className}VO> allListByParam(${className}DTO ${classname}) {
+        LambdaQueryWrapper<${className}> queryWrapper = Wraps.by(new ${className}());
+        List<${className}> ${classname}List = ${classname}Mapper.selectList(queryWrapper);
+        return ${classname}List.stream()
+                .map(${classname}PO -> Convert.convert(${className}VO.class, ${classname}PO))
+                .collect(Collectors.toList());
     }
 
     @Override
