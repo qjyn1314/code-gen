@@ -28,28 +28,28 @@ public class ${className}Controller {
     @Autowired
     private ${className}Service ${classname}Service;
 
-    @Log(title = "保存-${comments}", businessType = BusinessType.INSERT,isSaveResponseData = false)
+    //@Log(title = "保存-${comments}", businessType = BusinessType.INSERT,isSaveResponseData = false)
     @PostMapping("/save")
     @ApiOperation("保存-${comments}")
     public Result save(@RequestBody ${className}DTO ${classname}) {
         return Result.success(${classname}Service.save(${classname}));
     }
 
-    @Log(title = "分页列表-${comments}", businessType = BusinessType.OTHER,isSaveResponseData = false)
+    //@Log(title = "分页列表-${comments}", businessType = BusinessType.OTHER,isSaveResponseData = false)
     @PostMapping("/page")
     @ApiOperation("分页列表-${comments}")
     public Result page(@RequestBody ${className}DTO ${classname}) {
         return Result.success(${classname}Service.page(${classname}));
     }
 
-    @Log(title = "更新-${comments}", businessType = BusinessType.UPDATE,isSaveResponseData = false)
+    //@Log(title = "更新-${comments}", businessType = BusinessType.UPDATE,isSaveResponseData = false)
     @PostMapping("/update")
     @ApiOperation("更新-${comments}")
     public Result update(@RequestBody ${className} ${classname}) {
         return Result.success(${classname}Service.update(${classname}));
     }
 
-    @Log(title = "通过id查询信息-${comments}", businessType = BusinessType.OTHER,isSaveResponseData = false)
+    //@Log(title = "通过id查询信息-${comments}", businessType = BusinessType.OTHER,isSaveResponseData = false)
     @PostMapping("/detail/{id}")
     @ApiOperation("通过id查询信息-${comments}")
     public Result detailById(@PathVariable Long id) {
@@ -57,7 +57,7 @@ public class ${className}Controller {
     }
 
 
-    @Log(title = "通过更多参数查询信息-${comments}", businessType = BusinessType.OTHER,isSaveResponseData = false)
+    //@Log(title = "通过更多参数查询信息-${comments}", businessType = BusinessType.OTHER,isSaveResponseData = false)
     @PostMapping("/detail")
     @ApiOperation("通过更多参数查询信息-${comments}")
     public Result detailByParam(@RequestBody ${className}DTO ${classname}) {

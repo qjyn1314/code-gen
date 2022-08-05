@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * ${comments}
@@ -42,9 +43,8 @@ public class ${className}ServiceImpl implements ${className}Service, AopProxyDec
 
     @Override
     public PageInfo<${className}VO> page(${className}DTO ${classname}) {
-        return PageHelper.startPage(${classname}.getPageNum(), ${classname}.getPageSize()).doSelectPageInfo(() -> {
-            this.self().listByParam(${classname});
-        });
+        PageHelper.startPage(${classname}.getPageNum(), ${classname}.getPageSize());
+        return new PageInfo<>(this.self().allListByParam(${classname}));
     }
 
     @Override
