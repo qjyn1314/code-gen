@@ -77,7 +77,7 @@ public class CodeGenUtils {
                                                       Map<String, Object> table,
                                                       List<Map<String, Object>> columns) {
         TableEntity tableEntity = BeanUtil.fillBeanWithMap(table, new TableEntity(), false);
-        tableEntity.setComments(genConfig.getComments());
+        tableEntity.setComments(StrUtil.isBlank(tableEntity.getComments()) ? genConfig.getComments() : tableEntity.getComments());
         String className = tableToJava(tableEntity.getTablename(), genConfig.getTablePrefix());
         log.debug("生成的Java类名...{}", className);
         tableEntity.setClassName(className);

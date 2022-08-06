@@ -1,5 +1,6 @@
 package com.code.gen.mapper.entity;
 
+import cn.hutool.core.util.StrUtil;
 import lombok.Data;
 
 import java.util.List;
@@ -14,6 +15,25 @@ public class TableEntity {
      * 名称
      */
     private String tablename;
+
+    public String getTablename() {
+        if (StrUtil.isBlank(tablename)) {
+            return tableName;
+        }
+        return tablename;
+    }
+
+    /**
+     * 名称
+     */
+    private String tableName;
+
+    public String getTableName() {
+        if (StrUtil.isBlank(tableName)) {
+            return tablename;
+        }
+        return tableName;
+    }
 
     /**
      * 备注
