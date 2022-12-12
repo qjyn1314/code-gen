@@ -15,11 +15,6 @@ import java.util.ArrayList;
 
 public class PgSqlMybatisPlus {
     /**
-     * datasource:
-     * driver-class-name: org.postgresql.Driver
-     * url: jdbc:postgresql://39.105.109.251:5432/env-jiujiang-fxyj
-     * username: postgres
-     * password: S0uchu@ng.DB1
      */
     public static void main(String[] args) {
         //scanner("表名，多个英文逗号分割").split(",")
@@ -44,9 +39,6 @@ public class PgSqlMybatisPlus {
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setDriverName("org.postgresql.Driver");
-        dsc.setUrl("jdbc:postgresql://39.105.109.251:5432/env-jiujiang-fxyj");
-        dsc.setUsername("postgres");
-        dsc.setPassword("S0uchu@ng.DB1");
         mpg.setDataSource(dsc);
 
         // 包配置

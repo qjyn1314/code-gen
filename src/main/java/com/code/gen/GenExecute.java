@@ -19,8 +19,8 @@ public final class GenExecute {
 
     public static void main(String[] args) {
 
-//        genCodeByMysql();
-        genCodeByPgsql();
+        genCodeByMysql();
+//        genCodeByPgsql();
 
     }
 
@@ -28,9 +28,6 @@ public final class GenExecute {
         DbMessageInfo dbMessageInfo = new DbMessageInfo();
         // 此处配置数据库连接信息
         dbMessageInfo.setDriverClassName("org.postgresql.Driver");
-        dbMessageInfo.setUrl("jdbc:postgresql://39.105.109.251:5432/env-jiujiang-fxyj?currentSchema=public");
-        dbMessageInfo.setUsername("postgres");
-        dbMessageInfo.setPassword("S0uchu@ng.DB1");
         GenConfig genConfig = new GenConfig();
         genConfig.setDbMessageInfo(dbMessageInfo);
         // 配置生成的信息
@@ -72,7 +69,7 @@ public final class GenExecute {
 
         DbMessageInfo dbMessageInfo = new DbMessageInfo();
         // 此处配置数据库连接信息
-        dbMessageInfo.setUrl("jdbc:mysql://127.0.0.1:3306/study?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC");
+        dbMessageInfo.setUrl("jdbc:mysql://127.0.0.1:3308/study?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC");
         dbMessageInfo.setUsername("root");
         dbMessageInfo.setPassword("123456");
         GenConfig genConfig = new GenConfig();
@@ -87,7 +84,7 @@ public final class GenExecute {
 
     private static void genDefault(GenConfig genConfig) {
         //需要生成代码的表名
-        String tableName = "ziam_user";
+        String tableName = "plan_manager";
         log.info("生成代码的表名是....{}", tableName);
         genConfig.setTableName(tableName);
         //自定义表备注
