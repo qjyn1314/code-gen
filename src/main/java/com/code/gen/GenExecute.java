@@ -69,7 +69,7 @@ public final class GenExecute {
 
         DbMessageInfo dbMessageInfo = new DbMessageInfo();
         // 此处配置数据库连接信息
-        dbMessageInfo.setUrl("jdbc:mysql://127.0.0.1:3308/study?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC");
+        dbMessageInfo.setUrl("jdbc:mysql://127.0.0.1:3308/oauth_diy_life?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC");
         dbMessageInfo.setUsername("root");
         dbMessageInfo.setPassword("123456");
         GenConfig genConfig = new GenConfig();
@@ -84,7 +84,7 @@ public final class GenExecute {
 
     private static void genDefault(GenConfig genConfig) {
         //需要生成代码的表名
-        String tableName = "plan_manager";
+        String tableName = "lifetime_user_group";
         log.info("生成代码的表名是....{}", tableName);
         genConfig.setTableName(tableName);
         //自定义表备注

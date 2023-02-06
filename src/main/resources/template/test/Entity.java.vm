@@ -20,6 +20,11 @@ import java.io.Serializable;
 @TableName("${tableName}")
 public class ${className} implements Serializable {
 
+#foreach ($column in $columnList)
+    public static final String FIELD_$column.capitalAttrName = "$column.lowerAttrName";
+#end
+
+
     #foreach ($column in $columns)
 /**
      * $column.comments
