@@ -10,7 +10,7 @@ import cn.hutool.json.JSONUtil;
 import com.gen.code.config.DbInfo;
 import com.gen.code.config.GenCodeInfo;
 import com.gen.code.mapper.GenMapper;
-import com.gen.code.util.CodeGenUtils;
+import com.gen.code.util.GenCodeUtils;
 import com.gen.code.util.VelocityInitializer;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.Template;
@@ -60,7 +60,7 @@ public class GenService {
                                  Map<String, Object> table,
                                  List<Map<String, Object>> columns) {
         // 用于生成代码所用到的数据
-        Map<String, Object> tempDataMap = CodeGenUtils.getTemplateData(genCodeInfo, table, columns);
+        Map<String, Object> tempDataMap = GenCodeUtils.getTemplateData(genCodeInfo, table, columns);
         log.info("用于生成代码所用到的数据->{}", JSONUtil.toJsonStr(tempDataMap));
 
         Map<String, String> templatePathMap = genCodeInfo.getTemplatePathMap();
@@ -77,7 +77,7 @@ public class GenService {
 
         for (Map.Entry<String, String> tempPath : templatePathMap.entrySet()) {
             String tempKey = tempPath.getKey();
-            String filePath = CodeGenUtils.getZipFilePath(tempKey, genCodeInfo);
+            String filePath = GenCodeUtils.getZipFilePath(tempKey, genCodeInfo);
             String tempPathVal = tempPath.getValue();
             // 读取类路径下的模板
             Template emptyTemplate = Velocity.getTemplate(tempPathVal, CharsetUtil.UTF_8);
