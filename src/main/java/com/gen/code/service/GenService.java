@@ -51,7 +51,7 @@ public class GenService {
         Assert.notNull(table, "未查找到表信息。");
         log.info("表信息是...{}", JSONUtil.toJsonStr(table));
 
-        List<Map<String, Object>> columns = genMapper.queryColumns(tableName);
+        List<Map<String, Object>> columns = genMapper.queryMysqlColumns(tableName);
 
         genZipOutStream(genCodeInfo, table, columns);
 

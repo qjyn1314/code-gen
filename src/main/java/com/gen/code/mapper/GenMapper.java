@@ -41,7 +41,7 @@ public interface GenMapper {
     @Select("select column_name columnName, data_type dataType, column_comment comments, column_key columnKey, extra ," +
             "is_nullable as isNullable,column_type as columnType from information_schema.columns " +
             " where table_name = #{tableName} and table_schema = (select database()) order by ordinal_position" )
-    List<Map<String, Object>> queryColumns(@Param("tableName") String tableName);
+    List<Map<String, Object>> queryMysqlColumns(@Param("tableName") String tableName);
 
     /**
      * 查询表列信息
