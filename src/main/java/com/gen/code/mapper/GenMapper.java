@@ -1,4 +1,4 @@
-package com.code.gen.mapper;
+package com.gen.code.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -30,7 +30,7 @@ public interface GenMapper {
      *
      * @param tableName 表名称
      */
-    @Select("select tablename as tablename from pg_tables where schemaname='public' and tablename = #{tableName}")
+    @Select("select tablename as tablename from pg_tables where schemaname='test_schema' and tablename = #{tableName}")
     Map<String, Object> queryPgSqlTable(@Param("tableName") String tableName);
 
     /**

@@ -1,4 +1,4 @@
-package com.code.gen.service;
+package com.gen.code.service;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
@@ -7,11 +7,12 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.json.JSONUtil;
-import com.code.gen.config.DbMessageInfo;
-import com.code.gen.config.GenConfig;
-import com.code.gen.config.SqlSessionService;
-import com.code.gen.mapper.GenMapper;
-import com.code.gen.util.CodeGenUtils;
+import com.gen.code.config.DbInfo;
+import com.gen.code.config.GenCodeInfo;
+import com.gen.code.config.SqlSessionService;
+import com.gen.code.mapper.GenMapper;
+import com.gen.code.util.CodeGenUtils;
+import com.gen.code.util.VelocityInitializer;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -36,34 +37,14 @@ import java.util.zip.ZipOutputStream;
 @Slf4j
 public class GenService {
 
-    public static final String MYSQL = "mysql";
-    public static final String POSTGRESQL = "postgresql";
-
-    private GenMapper getGenMapper(GenConfig genConfig) {
-        DbMessageInfo dbMessageInfo = genConfig.getDbMessageInfo();
-        return SqlSessionService.me().handleSession(dbMessageInfo, GenMapper.class).getMapper(GenMapper.class);
+    private GenMapper getGenMapper(DbInfo dbInfo) {
+        return SqlSessionService.me().handleSession(dbInfo, GenMapper.class).getMapper(GenMapper.class);
     }
 
-    public void genCode(GenConfig genConfig) {
-        GenMapper genMapper = getGenMapper(genConfig);
-        String tableName = genConfig.getTableName();
+    public void genCode(GenCodeInfo genCodeInfo) {
+        GenMapper genMapper = getGenMapper(genCodeInfo.getDbInfo());
+        String tableName = genCodeInfo.getTableName();
         Assert.notBlank(tableName, "请使用正确的表名。");
-
-        DbMessageInfo dbMessageInfo = genConfig.getDbMessageInfo();
-        String dbUrl = dbMessageInfo.getUrl();
-
-        //当前数据连接中包含了pgsql则查询pgsql
-        if (dbUrl.contains(POSTGRESQL)) {
-            Map<String, Object> table = genMapper.queryPgSqlTable(tableName);
-            Assert.notNull(table, "未查找到表信息。");
-            log.info("表信息是...{}", JSONUtil.toJsonStr(table));
-
-            List<Map<String, Object>> columns = genMapper.queryPgSqlColumns(tableName);
-            log.info("表的列信息是...{}", JSONUtil.toJsonStr(columns));
-
-            genZipOutStream(genConfig, table, columns);
-            return;
-        }
 
         //默认查询mysql数据库信息
         Map<String, Object> table = genMapper.queryTable(tableName);
@@ -71,41 +52,44 @@ public class GenService {
         log.info("表信息是...{}", JSONUtil.toJsonStr(table));
 
         List<Map<String, Object>> columns = genMapper.queryColumns(tableName);
-        log.info("表的列信息是...{}", JSONUtil.toJsonStr(columns));
 
-        genZipOutStream(genConfig, table, columns);
+        genZipOutStream(genCodeInfo, table, columns);
 
     }
 
-    private void genZipOutStream(GenConfig genConfig,
+    private void genZipOutStream(GenCodeInfo genCodeInfo,
                                  Map<String, Object> table,
                                  List<Map<String, Object>> columns) {
+        // 用于生成代码所用到的数据
+        Map<String, Object> tempDataMap = CodeGenUtils.getTemplateData(genCodeInfo, table, columns);
+        log.info("用于生成代码所用到的数据->{}", JSONUtil.toJsonStr(tempDataMap));
 
-        Map<String, Object> templateDataMap = CodeGenUtils.getTemplateData(genConfig, table, columns);
-        log.info("templateDataMap_{}",JSONUtil.toJsonStr(templateDataMap));
-        List<String> filledOutTemplateList = CodeGenUtils.fillingTemplate(genConfig, templateDataMap);
-        Assert.notEmpty(filledOutTemplateList, "获取不到模板文件。");
-
-        String templatePath = genConfig.getTemplatePath();
+        Map<String, String> templatePathMap = genCodeInfo.getTemplatePathMap();
+        Assert.notEmpty(templatePathMap, "获取不到模板文件。");
+        // 设置velocity资源加载器
+        VelocityInitializer.initVelocity();
+        log.info("VelocityInitializer initVelocity end");
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);
-        VelocityContext context = new VelocityContext(templateDataMap);
 
-        for (String template : filledOutTemplateList) {
-            String filePath = CodeGenUtils.getZipFilePath(template, templateDataMap);
-            log.info("压缩包中的文件路径是-{}", filePath);
-            template = templatePath + template;
-            //从类路径下读取所需要的模板
-            Template emptyTemplate = Velocity.getTemplate(template, CharsetUtil.UTF_8);
-            // 渲染模板
+        // 将数据初始化到 VelocityContext 上下文中
+        VelocityContext context = new VelocityContext(tempDataMap);
+
+        for (Map.Entry<String, String> tempPath : templatePathMap.entrySet()) {
+            String tempKey = tempPath.getKey();
+            String filePath = CodeGenUtils.getZipFilePath(tempKey, genCodeInfo);
+            String tempPathVal = tempPath.getValue();
+            // 读取类路径下的模板
+            Template emptyTemplate = Velocity.getTemplate(tempPathVal, CharsetUtil.UTF_8);
+            // 将数据渲染模板到模板中
             StringWriter strWri = new StringWriter();
             emptyTemplate.merge(context, strWri);
 
             try {
                 // 添加到zip
                 zip.putNextEntry(new ZipEntry(filePath));
-                //将数据写入到zip中
+                // 将数据写入到zip中
                 IoUtil.write(zip, StandardCharsets.UTF_8, false, strWri);
                 //然后关闭它
                 IoUtil.close(strWri);
@@ -123,14 +107,16 @@ public class GenService {
             log.error("渲染模板失败：{0}", e);
         }
 
-        generatePath(genConfig, outputStream);
+        generatePath(genCodeInfo, outputStream);
+
+        System.exit(1);
 
     }
 
-    private void generatePath(GenConfig genConfig, ByteArrayOutputStream outputStream) {
-        String genPath = genConfig.getGenPath();
+    private void generatePath(GenCodeInfo genCodeInfo, ByteArrayOutputStream outputStream) {
+        String genPath = genCodeInfo.getGenPath();
         Assert.notBlank(genPath, "请确定生成文件所输出的文件夹。");
-        String tableName = genConfig.getTableName();
+        String tableName = genCodeInfo.getTableName();
         //创建文件夹
         File file = new File(genPath);
         if (!file.exists()) {

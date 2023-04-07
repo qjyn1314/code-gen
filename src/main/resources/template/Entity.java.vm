@@ -2,10 +2,11 @@ package ${entity};
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-#if(${hasBigDecimal})
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import java.math.BigDecimal;
-#end
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -16,24 +17,27 @@ import java.io.Serializable;
  * @author ${author}
  * @date ${datetime}
  */
-@Data
+@Setter
+@Getter
+@NoArgsConstructor
+@Accessors(chain = true)
 @TableName("${tableName}")
 public class ${className} implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-#foreach ($column in $columnList)
-    public static final String FIELD_$column.capitalAttrName = "$column.lowerAttrName";
+#foreach ($column in $allColumns)
+    public static final String $column.capitalAttrName = "$column.lowerAttrName";
 #end
 
-    #foreach ($column in $columns)
-/**
+    #foreach ($column in $allColumns)
+    /**
      * $column.comments
      */
-    #if($column.columnName == $pk.columnName)
-@TableId
+    #if($column.priFlag)
+    @TableId
     #end
-private $column.attrType $column.lowerAttrName;
+    private $column.attrType $column.lowerAttrName;
     #end
 
 }

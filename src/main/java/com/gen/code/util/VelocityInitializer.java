@@ -1,6 +1,5 @@
-package com.code.gen.util;
+package com.gen.code.util;
 
-import cn.hutool.core.util.CharsetUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.runtime.RuntimeConstants;
@@ -19,10 +18,9 @@ public class VelocityInitializer {
         Properties p = new Properties();
         try {
             // 加载classpath目录下的vm文件
-            p.setProperty("file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+            p.setProperty("resource.loader.file.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
             // 定义字符集
-            p.setProperty(RuntimeConstants.INPUT_ENCODING, CharsetUtil.UTF_8);
-            p.setProperty(RuntimeConstants.OUTPUT_ENCODING, CharsetUtil.UTF_8);
+            p.setProperty(RuntimeConstants.INPUT_ENCODING, RuntimeConstants.ENCODING_DEFAULT);
             // 初始化Velocity引擎，指定配置Properties
             Velocity.init(p);
         } catch (Exception e) {
