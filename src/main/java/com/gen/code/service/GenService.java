@@ -9,7 +9,6 @@ import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.json.JSONUtil;
 import com.gen.code.config.DbInfo;
 import com.gen.code.config.GenCodeInfo;
-import com.gen.code.config.SqlSessionService;
 import com.gen.code.mapper.GenMapper;
 import com.gen.code.util.CodeGenUtils;
 import com.gen.code.util.VelocityInitializer;

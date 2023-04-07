@@ -30,12 +30,14 @@ public final class GenExecute {
         dbInfo.setUsername("root");
         dbInfo.setPassword("123456");
         dbInfo.setDriverClassName(DbInfo.MYSQL_DRIVER_CLASS_NAME);
-        GenCodeInfo genCodeInfo = new GenCodeInfo();
-        genCodeInfo.setDbInfo(dbInfo);
-        // 配置生成基本信息
+
+        GenCodeInfo genCodeInfo = new GenCodeInfo().setDbInfo(dbInfo);
+
+        // 配置基本信息
         genDefault(genCodeInfo);
-        GenService genService = new GenService();
-        genService.genCode(genCodeInfo);
+
+        new GenService().genCode(genCodeInfo);
+
         log.info("Success....");
         System.exit(1);
     }
@@ -80,7 +82,7 @@ public final class GenExecute {
      */
     private static Map<String, String> getFileMap(GenCodeInfo genCodeInfo) {
         return MapUtil
-                .builder(GenCodeInfo.entity, "Entity.java")
+                .builder(GenCodeInfo.entity, ".java")
                 .put(GenCodeInfo.controller, "Controller.java")
                 .put(GenCodeInfo.service, "Service.java")
                 .put(GenCodeInfo.serviceImpl, "ServiceImpl.java")

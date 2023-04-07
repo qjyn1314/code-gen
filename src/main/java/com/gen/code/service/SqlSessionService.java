@@ -1,27 +1,27 @@
-package com.gen.code.config;
+package com.gen.code.service;
 
+import com.gen.code.config.DbInfo;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 
-/**
- * <p>
- * explain:
- * </p>
- *
- * @author wangjunming
- * @since 2021/7/17 15:46
- */
-public class MybatisGenConfig {
+public class SqlSessionService {
 
-    private MybatisGenConfig() {
+    private SqlSessionService() {
     }
 
-    public static MybatisGenConfig me() {
-        return new MybatisGenConfig();
+    public static SqlSessionService me() {
+        return new SqlSessionService();
+    }
+
+    @SafeVarargs
+    public final <T> SqlSession handleSession(DbInfo dbInfo, Class<T>... classList) {
+        SqlSessionFactory sqlSessionFactory = initMybatisSqlSessionFactory(dbInfo, classList);
+        return sqlSessionFactory.openSession(true);
     }
 
     @SafeVarargs
@@ -35,6 +35,5 @@ public class MybatisGenConfig {
         }
         return new SqlSessionFactoryBuilder().build(configuration);
     }
-
 
 }
