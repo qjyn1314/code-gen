@@ -2,7 +2,6 @@ package com.gen.code;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
 import com.gen.code.config.DbInfo;
 import com.gen.code.config.GenCodeInfo;
 import com.gen.code.service.GenService;
@@ -38,6 +37,7 @@ public final class GenExecute {
         GenService genService = new GenService();
         genService.genCode(genCodeInfo);
         log.info("Success....");
+        System.exit(1);
     }
 
     private static void genDefault(GenCodeInfo genCodeInfo) {
@@ -113,12 +113,12 @@ public final class GenExecute {
      */
     private static Map<String, String> getDefaultPackMap(GenCodeInfo genCodeInfo) {
         return MapUtil
-                .builder(GenCodeInfo.entity, "com.gen.code.entity")
-                .put(GenCodeInfo.controller, "com.gen.code.controller")
-                .put(GenCodeInfo.service, "com.gen.code.service")
-                .put(GenCodeInfo.serviceImpl, "com.gen.code.service.impl")
-                .put(GenCodeInfo.mapper, "com.gen.code.mapper")
-                .put(GenCodeInfo.mapperXml, "com.gen.code.mapper.xml")
+                .builder(GenCodeInfo.entity, "com.authorization.life.system.infra.entity")
+                .put(GenCodeInfo.controller, "com.authorization.life.system.api.controller")
+                .put(GenCodeInfo.service, "com.authorization.life.system.infra.service")
+                .put(GenCodeInfo.serviceImpl, "com.authorization.life.system.infra.service.impl")
+                .put(GenCodeInfo.mapper, "com.authorization.life.system.infra.mapper")
+                .put(GenCodeInfo.mapperXml, "mapper")
                 .build();
     }
 

@@ -109,8 +109,6 @@ public class GenService {
 
         generatePath(genCodeInfo, outputStream);
 
-        System.exit(1);
-
     }
 
     private void generatePath(GenCodeInfo genCodeInfo, ByteArrayOutputStream outputStream) {
