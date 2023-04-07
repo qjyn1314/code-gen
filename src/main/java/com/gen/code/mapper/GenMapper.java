@@ -23,7 +23,7 @@ public interface GenMapper {
      */
     @Select("select table_name AS tableName, engine, table_comment as comments, NOW() datetime from information_schema.tables " +
             " where table_schema = (select database()) and table_name = #{tableName}" )
-    Map<String, Object> queryTable(@Param("tableName") String tableName);
+    Map<String, Object> queryMysqlTable(@Param("tableName") String tableName);
 
     /**
      * 查询PgSql表信息

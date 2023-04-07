@@ -46,7 +46,7 @@ public class GenService {
         Assert.notBlank(tableName, "请使用正确的表名。");
 
         //默认查询mysql数据库信息
-        Map<String, Object> table = genMapper.queryTable(tableName);
+        Map<String, Object> table = genMapper.queryMysqlTable(tableName);
         Assert.notNull(table, "未查找到表信息。");
         log.info("表信息是...{}", JSONUtil.toJsonStr(table));
 
