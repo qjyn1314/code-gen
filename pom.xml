@@ -5,7 +5,7 @@
 
     <groupId>com.code.gen</groupId>
     <artifactId>code-gen</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.2.0</version>
     <description>main方法生成代码</description>
 
     <properties>
