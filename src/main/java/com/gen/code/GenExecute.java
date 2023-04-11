@@ -24,6 +24,33 @@ public final class GenExecute {
         genCodeByMysql();
     }
 
+    /**
+     * 生成代码的原理:
+     * <p>
+     * 1.准备数据(查询数据库中的表信息,以表名为条件)
+     * <p>
+     * 1.1 以 com.gen.code.config.GenCodeInfo#entity 为key, 配置包名路径的map, 指定生成文件名的map, 指定目录下的模板.
+     * <p>
+     * 1.2 如果此时需要增加多个文件, 则需要先增加 map中的key, 然后增加 模板文件, 增加指定生成的文件名, 即可在配置好模板的前提下短时间生成代码.
+     * <p>
+     * 1.3 以 模板文件为主, 循环处理不同的模板, 设置数据, 设置生成的文件路径, 以及文件名.
+     * <p>
+     * 1.4 对应关系-->> 模板: controller-> Controller.java.vm
+     * <p>
+     * 包名: controller-> com.authorization.life.system.api.controller
+     * <p>
+     * 文件名: controller-> Controller.java
+     * <p>
+     * 此处的文件名前缀是当前的类名, 最后压缩包中的文件名为:
+     * <p>
+     * --->>> src/main/java/com/authorization/life/system/api/controller/xxxController.java
+     * <p>
+     * 2.准备Velocity
+     * <p>
+     * 3.写入文件
+     * <p>
+     * 4.打包为压缩包
+     */
     private static void genCodeByMysql() {
         DbInfo dbInfo = new DbInfo();
         dbInfo.setJdbcUrl(DbInfo.getMysqlUrl("127.0.0.1", "3350", "sync_test"));
@@ -35,7 +62,6 @@ public final class GenExecute {
 
         // 配置基本信息
         genDefault(genCodeInfo);
-
         new GenService().genCode(genCodeInfo);
 
         log.info("Success....");
@@ -50,8 +76,14 @@ public final class GenExecute {
         log.info("生成代码的表名是....{}", tableName);
         genCodeInfo.setTableName(tableName);
 
-        //表名前缀
+        // 表名前缀
         genCodeInfo.setTablePrefix("");
+        // 手动指定实体类名
+        genCodeInfo.setClassName("");
+        // 手动指定实体类名(首字母小写)
+        genCodeInfo.setLowerClassName("");
+        // 手动指定控制层的请求路径
+        genCodeInfo.setPathName("");
 
         String comments = "数据源配置表";
         genCodeInfo.setComments(comments);

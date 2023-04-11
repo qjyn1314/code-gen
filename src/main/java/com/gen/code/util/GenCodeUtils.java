@@ -50,7 +50,7 @@ public class GenCodeUtils {
         // 设置备注
         tableEntity.setComments(handleComments(tableEntity, genCodeInfo));
         // 设置控制层的请求路径
-        tableEntity.setPathName(handlePathName(tableEntity));
+        tableEntity.setPathName(handlePathName(tableEntity, genCodeInfo));
         // 设置全部的字段信息
         tableEntity.setAllColumns(handleAllColumns(genCodeInfo, columns));
         // 设置主键字段信息
@@ -140,7 +140,10 @@ public class GenCodeUtils {
     /**
      * 处理控制层的请求路径
      */
-    private static String handlePathName(TableEntity tableEntity) {
+    private static String handlePathName(TableEntity tableEntity, GenCodeInfo genCodeInfo) {
+        if (StrUtil.isNotBlank(genCodeInfo.getPathName())) {
+            return genCodeInfo.getPathName();
+        }
         String pathName = tableEntity.getPathName();
         if (StrUtil.isBlank(pathName)) {
             return StrUtil.replace(tableEntity.getTableName(), StrUtil.UNDERLINE, StrUtil.SLASH);
@@ -162,6 +165,9 @@ public class GenCodeUtils {
      * 处理类名首字母小写
      */
     private static String handleLowerClassName(TableEntity tableEntity, GenCodeInfo genCodeInfo) {
+        if (StrUtil.isNotBlank(genCodeInfo.getLowerClassName())) {
+            return genCodeInfo.getLowerClassName();
+        }
         String lowerClassName = StrUtil.toCamelCase(tableEntity.getTableName());
         genCodeInfo.setLowerClassName(lowerClassName);
         return lowerClassName;
@@ -171,6 +177,9 @@ public class GenCodeUtils {
      * 将表名转换为类名
      */
     private static String handleClassName(GenCodeInfo genCodeInfo) {
+        if (StrUtil.isNotBlank(genCodeInfo.getClassName())) {
+            return genCodeInfo.getClassName();
+        }
         String tableName = genCodeInfo.getTableName();
         String tablePrefix = genCodeInfo.getTablePrefix();
         String className = "";

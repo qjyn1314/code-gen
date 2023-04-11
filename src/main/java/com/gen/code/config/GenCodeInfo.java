@@ -57,6 +57,10 @@ public class GenCodeInfo implements Serializable {
      */
     private String lowerClassName;
     /**
+     * controller的请求路径
+     */
+    private String pathName;
+    /**
      * 表备注
      */
     private String comments;
