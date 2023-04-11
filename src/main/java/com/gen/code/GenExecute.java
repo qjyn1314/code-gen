@@ -35,15 +35,17 @@ public final class GenExecute {
      * <p>
      * 1.3 以 模板文件为主, 循环处理不同的模板, 设置数据, 设置生成的文件路径, 以及文件名.
      * <p>
-     * 1.4 对应关系-->> 模板: controller-> Controller.java.vm
+     * 1.4 对应关系-->>
+     * <p>
+     * 模板: controller-> Controller.java.vm
      * <p>
      * 包名: controller-> com.authorization.life.system.api.controller
      * <p>
      * 文件名: controller-> Controller.java
      * <p>
-     * 此处的文件名前缀是当前的类名, 最后压缩包中的文件名为:
+     * 注意: 此处的文件名前缀是当前的类名, 最后压缩包中的文件名为:
      * <p>
-     * --->>> src/main/java/com/authorization/life/system/api/controller/xxxController.java
+     * 结果: src/main/java/com/authorization/life/system/api/controller/xxxController.java
      * <p>
      * 2.准备Velocity
      * <p>
