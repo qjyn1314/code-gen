@@ -22,6 +22,7 @@ public final class GenExecute {
 
     public static void main(String[] args) {
         genCodeByMysql();
+        System.exit(1);
     }
 
     /**
@@ -55,9 +56,9 @@ public final class GenExecute {
      */
     private static void genCodeByMysql() {
         DbInfo dbInfo = new DbInfo();
-        dbInfo.setJdbcUrl(DbInfo.getMysqlUrl("127.0.0.1", "3350", "sync_test"));
-        dbInfo.setUsername("root");
-        dbInfo.setPassword("123456");
+        dbInfo.setJdbcUrl(DbInfo.getMysqlUrl("127.0.0.1", "3308", "life_flowable" ));
+        dbInfo.setUsername("root" );
+        dbInfo.setPassword("123456" );
         dbInfo.setDriverClassName(DbInfo.MYSQL_DRIVER_CLASS_NAME);
 
         GenCodeInfo genCodeInfo = new GenCodeInfo().setDbInfo(dbInfo);
@@ -66,33 +67,32 @@ public final class GenExecute {
         genDefault(genCodeInfo);
         new GenService().genCode(genCodeInfo);
 
-        log.info("Success....");
-        System.exit(1);
+        log.info("Success...." );
     }
 
     private static void genDefault(GenCodeInfo genCodeInfo) {
 
-        genCodeInfo.setAuthor("code@code.com");
+        genCodeInfo.setAuthor("code@code.com" );
 
-        String tableName = "conf_datasource";
+        String tableName = "flowable_record";
         log.info("生成代码的表名是....{}", tableName);
         genCodeInfo.setTableName(tableName);
 
         // 表名前缀
-        genCodeInfo.setTablePrefix("");
+        genCodeInfo.setTablePrefix("" );
         // 手动指定实体类名
-        genCodeInfo.setClassName("");
+        genCodeInfo.setClassName("" );
         // 手动指定实体类名(首字母小写)
-        genCodeInfo.setLowerClassName("");
+        genCodeInfo.setLowerClassName("" );
         // 手动指定控制层的请求路径
-        genCodeInfo.setPathName("");
+        genCodeInfo.setPathName("" );
 
         String comments = "数据源配置表";
         genCodeInfo.setComments(comments);
         log.info("生成代码的表备注是....{}", comments);
 
         // 类路径下默认的模板路径
-        genCodeInfo.setDefaultTempPath("template//");
+        genCodeInfo.setDefaultTempPath("template//" );
 
         // 指定类路径下的模板路径, 根据不同的指定, 获取不同的包名,生成不同的文件名,使用不同的模板文件
 //        genCodeInfo.setSpecificPath("template//test//");
@@ -107,7 +107,7 @@ public final class GenExecute {
         genCodeInfo.setTemplatePathMap(getTempPathMap(genCodeInfo));
 
         //生成的路径
-        genCodeInfo.setGenPath("D://workspace//gen_code");
+        genCodeInfo.setGenPath("D://workspace//gen_code" );
 
     }
 
@@ -116,12 +116,12 @@ public final class GenExecute {
      */
     private static Map<String, String> getFileMap(GenCodeInfo genCodeInfo) {
         return MapUtil
-                .builder(GenCodeInfo.entity, ".java")
-                .put(GenCodeInfo.controller, "Controller.java")
-                .put(GenCodeInfo.service, "Service.java")
-                .put(GenCodeInfo.serviceImpl, "ServiceImpl.java")
-                .put(GenCodeInfo.mapper, "Mapper.java")
-                .put(GenCodeInfo.mapperXml, "Mapper.xml")
+                .builder(GenCodeInfo.entity, ".java" )
+                .put(GenCodeInfo.controller, "Controller.java" )
+                .put(GenCodeInfo.service, "Service.java" )
+                .put(GenCodeInfo.serviceImpl, "ServiceImpl.java" )
+                .put(GenCodeInfo.mapper, "Mapper.java" )
+                .put(GenCodeInfo.mapperXml, "Mapper.xml" )
                 .build();
     }
 
@@ -149,12 +149,12 @@ public final class GenExecute {
      */
     private static Map<String, String> getDefaultPackMap(GenCodeInfo genCodeInfo) {
         return MapUtil
-                .builder(GenCodeInfo.entity, "com.authorization.life.system.infra.entity")
-                .put(GenCodeInfo.controller, "com.authorization.life.system.api.controller")
-                .put(GenCodeInfo.service, "com.authorization.life.system.infra.service")
-                .put(GenCodeInfo.serviceImpl, "com.authorization.life.system.infra.service.impl")
-                .put(GenCodeInfo.mapper, "com.authorization.life.system.infra.mapper")
-                .put(GenCodeInfo.mapperXml, "mapper")
+                .builder(GenCodeInfo.entity, "com.authorization.life.flowable.infra.entity" )
+                .put(GenCodeInfo.controller, "com.authorization.life.flowable.api.controller" )
+                .put(GenCodeInfo.service, "com.authorization.life.flowable.infra.service" )
+                .put(GenCodeInfo.serviceImpl, "com.authorization.life.flowable.infra.service.impl" )
+                .put(GenCodeInfo.mapper, "com.authorization.life.flowable.infra.mapper" )
+                .put(GenCodeInfo.mapperXml, "mapper" )
                 .build();
     }
 
