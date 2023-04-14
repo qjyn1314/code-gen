@@ -97,10 +97,11 @@ public final class GenExecute {
         // 指定类路径下的模板路径, 根据不同的指定, 获取不同的包名,生成不同的文件名,使用不同的模板文件
 //        genCodeInfo.setSpecificPath("template//test//");
 
-        //包名-在模板中的import 使用此出配置的包名路径
+        //包名-在模板中的import 使用此出配置的包名路径, 将生成最终文件所在的层级文件.
         genCodeInfo.setPackageMap(getDefaultPackMap(genCodeInfo));
 
-        //使用指定的文件名
+        //使用指定的文件名, 此处的文件名默认是 生成最终文件名的后缀, 结果是 当前所需生成的类名(ConfDataSource) + 文件名的后缀(Controller.java),
+        // 如: controller -> Controller.java --> 最终文件名: ConfDataSourceController.java
         genCodeInfo.setFileMap(getFileMap(genCodeInfo));
 
         //使用特定的目录下的模板
@@ -116,12 +117,12 @@ public final class GenExecute {
      */
     private static Map<String, String> getFileMap(GenCodeInfo genCodeInfo) {
         return MapUtil
-                .builder(GenCodeInfo.entity, ".java" )
-                .put(GenCodeInfo.controller, "Controller.java" )
-                .put(GenCodeInfo.service, "Service.java" )
-                .put(GenCodeInfo.serviceImpl, "ServiceImpl.java" )
-                .put(GenCodeInfo.mapper, "Mapper.java" )
-                .put(GenCodeInfo.mapperXml, "Mapper.xml" )
+                .builder(GenCodeInfo.ENTITY, ".java" )
+                .put(GenCodeInfo.CONTROLLER, "Controller.java" )
+                .put(GenCodeInfo.SERVICE, "Service.java" )
+                .put(GenCodeInfo.SERVICE_IMPL, "ServiceImpl.java" )
+                .put(GenCodeInfo.MAPPER, "Mapper.java" )
+                .put(GenCodeInfo.MAPPER_XML, "Mapper.xml" )
                 .build();
     }
 
@@ -135,12 +136,12 @@ public final class GenExecute {
             defaultTemp = genCodeInfo.getDefaultTempPath();
         }
         return MapUtil
-                .builder(GenCodeInfo.entity, defaultTemp + GenCodeInfo.entityPath)
-                .put(GenCodeInfo.controller, defaultTemp + GenCodeInfo.controllerPath)
-                .put(GenCodeInfo.service, defaultTemp + GenCodeInfo.servicePath)
-                .put(GenCodeInfo.serviceImpl, defaultTemp + GenCodeInfo.serviceImplPath)
-                .put(GenCodeInfo.mapper, defaultTemp + GenCodeInfo.mapperPath)
-                .put(GenCodeInfo.mapperXml, defaultTemp + GenCodeInfo.mapperXmlPath)
+                .builder(GenCodeInfo.ENTITY, defaultTemp + GenCodeInfo.ENTITY_JAVA_VM)
+                .put(GenCodeInfo.CONTROLLER, defaultTemp + GenCodeInfo.CONTROLLER_JAVA_VM)
+                .put(GenCodeInfo.SERVICE, defaultTemp + GenCodeInfo.SERVICE_JAVA_VM)
+                .put(GenCodeInfo.SERVICE_IMPL, defaultTemp + GenCodeInfo.SERVICE_IMPL_JAVA_VM)
+                .put(GenCodeInfo.MAPPER, defaultTemp + GenCodeInfo.MAPPER_JAVA_VM)
+                .put(GenCodeInfo.MAPPER_XML, defaultTemp + GenCodeInfo.MAPPER_XML_VM)
                 .build();
     }
 
@@ -149,12 +150,12 @@ public final class GenExecute {
      */
     private static Map<String, String> getDefaultPackMap(GenCodeInfo genCodeInfo) {
         return MapUtil
-                .builder(GenCodeInfo.entity, "com.authorization.life.flowable.infra.entity" )
-                .put(GenCodeInfo.controller, "com.authorization.life.flowable.api.controller" )
-                .put(GenCodeInfo.service, "com.authorization.life.flowable.infra.service" )
-                .put(GenCodeInfo.serviceImpl, "com.authorization.life.flowable.infra.service.impl" )
-                .put(GenCodeInfo.mapper, "com.authorization.life.flowable.infra.mapper" )
-                .put(GenCodeInfo.mapperXml, "mapper" )
+                .builder(GenCodeInfo.ENTITY, "com.authorization.life.flowable.infra.entity" )
+                .put(GenCodeInfo.CONTROLLER, "com.authorization.life.flowable.api.controller" )
+                .put(GenCodeInfo.SERVICE, "com.authorization.life.flowable.infra.service" )
+                .put(GenCodeInfo.SERVICE_IMPL, "com.authorization.life.flowable.infra.service.impl" )
+                .put(GenCodeInfo.MAPPER, "com.authorization.life.flowable.infra.mapper" )
+                .put(GenCodeInfo.MAPPER_XML, "mapper" )
                 .build();
     }
 

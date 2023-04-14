@@ -16,20 +16,20 @@ import java.util.Map;
 @Accessors(chain = true)
 public class GenCodeInfo implements Serializable {
 
-    public static final String entity = "entity";
-    public static final String controller = "controller";
-    public static final String service = "service";
-    public static final String serviceImpl = "serviceImpl";
-    public static final String mapper = "mapper";
-    public static final String mapperXml = "mapperXml";
+    public static final String ENTITY = "entity";
+    public static final String CONTROLLER = "controller";
+    public static final String SERVICE = "service";
+    public static final String SERVICE_IMPL = "serviceImpl";
+    public static final String MAPPER = "mapper";
+    public static final String MAPPER_XML = "mapperXml";
 
 
-    public static final String entityPath = "Entity.java.vm";
-    public static final String controllerPath = "Controller.java.vm";
-    public static final String servicePath = "Service.java.vm";
-    public static final String serviceImplPath = "ServiceImpl.java.vm";
-    public static final String mapperPath = "Mapper.java.vm";
-    public static final String mapperXmlPath = "Mapper.xml.vm";
+    public static final String ENTITY_JAVA_VM = "Entity.java.vm";
+    public static final String CONTROLLER_JAVA_VM = "Controller.java.vm";
+    public static final String SERVICE_JAVA_VM = "Service.java.vm";
+    public static final String SERVICE_IMPL_JAVA_VM = "ServiceImpl.java.vm";
+    public static final String MAPPER_JAVA_VM = "Mapper.java.vm";
+    public static final String MAPPER_XML_VM = "Mapper.xml.vm";
 
 
     /**
