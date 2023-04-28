@@ -11,6 +11,8 @@ import java.util.Map;
 
 /**
  * 生成配置
+ *
+ * @author wangjunming
  */
 @Setter
 @Getter

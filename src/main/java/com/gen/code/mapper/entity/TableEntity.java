@@ -1,6 +1,5 @@
 package com.gen.code.mapper.entity;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +8,8 @@ import java.util.List;
 
 /**
  * 表属性
+ *
+ * @author wangjunming
  */
 @Getter
 @Setter
