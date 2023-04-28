@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -83,14 +84,14 @@ public class GenCodeInfo implements Serializable {
     /**
      * 需要生成的包名集合, {"entity","com.gen.code.controller"}
      */
-    private Map<String, String> packageMap;
+    public Map<String, String> packageMap = new LinkedHashMap<>();
     /**
      * 需要生成的文件名后缀集合, {"entity","Controller.java"}
      */
-    private Map<String, String> fileMap;
+    public Map<String, String> fileMap = new LinkedHashMap<>();
     /**
      * 所属的模板集合, {"entity","template"},{"entity","template//test"},
      */
-    private Map<String, String> templatePathMap;
+    public Map<String, String> templatePathMap = new LinkedHashMap<>();
 
 }

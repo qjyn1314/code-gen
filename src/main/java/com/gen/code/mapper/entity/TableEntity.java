@@ -1,13 +1,17 @@
 package com.gen.code.mapper.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * 表属性
  */
-@Data
+@Getter
+@Setter
 public class TableEntity {
 
     /**
@@ -38,16 +42,16 @@ public class TableEntity {
     /**
      * 所有的字段信息
      */
-    private List<ColumnEntity> allColumns;
+    public List<ColumnEntity> allColumns = new LinkedList<>();
 
     /**
      * 主键-可能会有多个主键, 此时需要指定某一列为主键
      */
-    private ColumnEntity pk;
+    public ColumnEntity pk = new ColumnEntity();
 
     /**
      * 去除了一些审计字段的关键字段信息
      */
-    private List<ColumnEntity> essentialColumns;
+    public List<ColumnEntity> essentialColumns = new LinkedList<>();
 
 }
