@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * 代码生成器 工具类
  */
 @Slf4j
-public class GenCodeUtils {
+public class GenCodeUtil {
 
     public static final String xml_File = ".xml";
     public static final String java_File = ".java";
