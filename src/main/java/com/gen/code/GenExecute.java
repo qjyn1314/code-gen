@@ -56,7 +56,7 @@ public final class GenExecute {
      */
     private static void genCodeByMysql() {
         DbInfo dbInfo = new DbInfo();
-        dbInfo.setJdbcUrl(DbInfo.getMysqlUrl("127.0.0.1", "3308", "life_flowable"));
+        dbInfo.setJdbcUrl(DbInfo.getMysqlUrl("127.0.0.1", "3350", "sync_test"));
         dbInfo.setUsername("root");
         dbInfo.setPassword("123456");
         dbInfo.setDriverClassName(DbInfo.MYSQL_DRIVER_CLASS_NAME);
@@ -74,12 +74,12 @@ public final class GenExecute {
 
         genCodeInfo.setAuthor("code@code.com");
 
-        String tableName = "flowable_record";
+        String tableName = "lemd_emp";
         log.info("生成代码的表名是....{}", tableName);
         genCodeInfo.setTableName(tableName);
 
         // 表名前缀
-        genCodeInfo.setTablePrefix("");
+        genCodeInfo.setTablePrefix("lemd_");
         // 手动指定实体类名
         genCodeInfo.setClassName("");
         // 手动指定实体类名(首字母小写)
@@ -91,14 +91,14 @@ public final class GenExecute {
         genCodeInfo.setComments(comments);
         log.info("生成代码的表备注是....{}", comments);
 
-        // 类路径下默认的模板路径
+        // 类路径下默认的模板路径-此处必须加后缀斜杠
         genCodeInfo.setDefaultTempPath("template//");
 
         // 指定类路径下的模板路径, 根据不同的指定, 获取不同的包名,生成不同的文件名,使用不同的模板文件
 //        genCodeInfo.setSpecificPath("template//test//");
 
         //包名-在模板中的import 使用此出配置的包名路径, 将生成最终文件所在的层级文件.
-        genCodeInfo.setPackageMap(getDefaultPackMap(genCodeInfo));
+        genCodeInfo.setPackageMap(getStudyWorkPackMap(genCodeInfo));
 
         //使用指定的文件名, 此处的文件名默认是 生成最终文件名的后缀, 结果是 当前所需生成的类名(ConfDataSource) + 文件名的后缀(Controller.java),
         // 如: controller -> Controller.java --> 最终文件名: ConfDataSourceController.java
@@ -155,6 +155,20 @@ public final class GenExecute {
                 .put(GenCodeInfo.SERVICE, "com.authorization.life.flowable.infra.service")
                 .put(GenCodeInfo.SERVICE_IMPL, "com.authorization.life.flowable.infra.service.impl")
                 .put(GenCodeInfo.MAPPER, "com.authorization.life.flowable.infra.mapper")
+                .put(GenCodeInfo.MAPPER_XML, "mapper")
+                .build();
+    }
+
+    /**
+     * 获取默认的包名
+     */
+    private static Map<String, String> getStudyWorkPackMap(GenCodeInfo genCodeInfo) {
+        return MapUtil
+                .builder(GenCodeInfo.ENTITY, "com.hulunbuir.infra.entity")
+                .put(GenCodeInfo.CONTROLLER, "com.hulunbuir.controller")
+                .put(GenCodeInfo.SERVICE, "com.hulunbuir.infra.service")
+                .put(GenCodeInfo.SERVICE_IMPL, "com.hulunbuir.infra.service.impl")
+                .put(GenCodeInfo.MAPPER, "com.hulunbuir.infra.mapper")
                 .put(GenCodeInfo.MAPPER_XML, "mapper")
                 .build();
     }
