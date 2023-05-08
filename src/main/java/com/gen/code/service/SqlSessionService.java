@@ -1,6 +1,7 @@
 package com.gen.code.service;
 
 import com.gen.code.config.DbInfo;
+import org.apache.ibatis.logging.stdout.StdOutImpl;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
