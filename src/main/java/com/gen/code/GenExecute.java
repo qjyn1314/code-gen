@@ -34,9 +34,9 @@ public final class GenExecute {
      * <p>
      * 1.2 如果此时需要增加多个文件, 则需要先增加 map中的key, 然后增加 模板文件, 增加指定生成的文件名, 即可在配置好模板的前提下短时间生成代码.
      * <p>
-     * 1.3 以 模板文件为主, 循环处理不同的模板, 设置数据, 设置生成的文件路径, 以及文件名.
+     * 1.3 以 模板文件为驱动(没有相应的模板则不进行生成代码), 循环处理不同的模板, 设置数据, 设置生成的文件路径, 以及文件名.
      * <p>
-     * 1.4 对应关系-->>
+     * 1.4 对应关系如下-->>
      * <p>
      * 模板: controller-> Controller.java.vm
      * <p>
@@ -44,7 +44,7 @@ public final class GenExecute {
      * <p>
      * 文件名: controller-> Controller.java
      * <p>
-     * 注意: 此处的文件名前缀是当前的类名, 最后压缩包中的文件名为:
+     * 注意: 此处的文件名是当前的类文件名的后缀, 最后压缩包中的文件名为:
      * <p>
      * 结果: src/main/java/com/authorization/life/system/api/controller/xxxController.java
      * <p>
