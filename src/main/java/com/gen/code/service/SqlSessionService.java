@@ -18,21 +18,16 @@ public class SqlSessionService {
         return new SqlSessionService();
     }
 
-    @SafeVarargs
-    public final <T> SqlSession handleSession(DbInfo dbInfo, Class<T>... classList) {
-        SqlSessionFactory sqlSessionFactory = initMybatisSqlSessionFactory(dbInfo, classList);
-        return sqlSessionFactory.openSession(true);
+    public final <T> SqlSession handleSession(DbInfo dbInfo, Class<T> classMapper) {
+        return initMybatisSqlSessionFactory(dbInfo, classMapper).openSession(true);
     }
 
-    @SafeVarargs
-    public final <T> SqlSessionFactory initMybatisSqlSessionFactory(DbInfo dbInfo, Class<T>... classList) {
+    public final <T> SqlSessionFactory initMybatisSqlSessionFactory(DbInfo dbInfo, Class<T> classMapper) {
         TransactionFactory transactionFactory = new JdbcTransactionFactory();
         Environment environment = new Environment("development", transactionFactory, dbInfo);
         Configuration configuration = new Configuration(environment);
         configuration.setMapUnderscoreToCamelCase(true);
-        for (Class<T> mapperClass : classList) {
-            configuration.addMapper(mapperClass);
-        }
+        configuration.addMapper(classMapper);
         return new SqlSessionFactoryBuilder().build(configuration);
     }
 
