@@ -22,7 +22,7 @@ public final class GenExecute {
 
     public static void main(String[] args) {
         genCodeByMysql();
-        System.exit(1);
+//        System.exit(1);
     }
 
     /**
@@ -74,7 +74,7 @@ public final class GenExecute {
 
         genCodeInfo.setAuthor("code@code.com");
 
-        String tableName = "lemd_emp";
+        String tableName = "lemd_tenant";
         log.info("生成代码的表名是....{}", tableName);
         genCodeInfo.setTableName(tableName);
 

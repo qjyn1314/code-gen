@@ -128,10 +128,11 @@ public class GenService {
         try {
             fileOutputStream = new FileOutputStream(fileGenPath);
             byte[] data = outputStream.toByteArray();
-            IoUtil.write(fileOutputStream, Boolean.TRUE, data);
+            IoUtil.write(fileOutputStream, Boolean.FALSE, data);
         } catch (Exception e) {
             log.error("生成文件失败，请检查文件路径是否正确。", e);
         } finally {
+            IoUtil.close(outputStream);
             IoUtil.close(fileOutputStream);
         }
     }
