@@ -22,7 +22,7 @@ public final class GenExecute {
 
     public static void main(String[] args) {
         genCodeByMysql();
-        System.exit(1);
+        System.exit(0);
     }
 
     /**
