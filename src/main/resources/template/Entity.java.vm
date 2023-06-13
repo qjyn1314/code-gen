@@ -27,7 +27,7 @@ public class ${className} implements Serializable {
     private static final long serialVersionUID = 1L;
 
 #foreach ($column in $allColumns)
-    public static final String $column.capitalAttrName = "$column.lowerAttrName";
+    public static final String $column.capitalAttrName = "$column.columnName";
 #end
 
     #foreach ($column in $allColumns)

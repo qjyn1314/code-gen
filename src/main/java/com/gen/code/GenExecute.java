@@ -74,7 +74,7 @@ public final class GenExecute {
 
         genCodeInfo.setAuthor("code@code.com");
 
-        String tableName = "lemd_tenant";
+        String tableName = "lemd_emp";
         log.info("生成代码的表名是....{}", tableName);
         genCodeInfo.setTableName(tableName);
 
