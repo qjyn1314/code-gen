@@ -16,27 +16,27 @@ import java.util.List;
 public class TableEntity {
 
     /**
-     * 名称
+     * 名称  user_info
      */
     private String tableName;
 
     /**
-     * 备注
+     * 备注 用户信息表
      */
     private String comments;
 
     /**
-     * 驼峰类名(首字母大写)
+     * 驼峰类名(首字母大写) UserInfo
      */
     private String className;
 
     /**
-     * 驼峰类名(首字母小写)
+     * 驼峰类名(首字母小写) userInfo
      */
     private String lowerClassname;
 
     /**
-     * controller的请求路径
+     * controller的请求路径  /lemd/user
      */
     private String pathName;
 

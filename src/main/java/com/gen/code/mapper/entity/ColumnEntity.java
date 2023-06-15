@@ -11,22 +11,22 @@ import lombok.Setter;
 public class ColumnEntity {
 
     /**
-     * 字段名
+     * 字段名  user_id
      */
     private String columnName;
 
     /**
-     * 数据库中的数据类型
+     * 数据库中的数据类型  varchar
      */
     private String dataType;
 
     /**
-     * 字段备注
+     * 字段备注  用户id
      */
     private String comments;
 
     /**
-     * 驼峰命名的字段名(首字母小写)
+     * 驼峰命名的字段名(首字母小写)  userId
      */
     private String lowerAttrName;
 
@@ -36,12 +36,12 @@ public class ColumnEntity {
     private String capitalAttrName;
 
     /**
-     * java中的数据类型
+     * java中的数据类型  Long
      */
     private String attrType;
 
     /**
-     * 主键类型
+     * 主键类型 PK
      */
     private String columnKey;
 
