@@ -30,19 +30,20 @@ public final class GenExecute {
      * <p>
      * 1.准备数据(查询数据库中的表信息,以表名为条件)
      * <p>
-     * 1.1 以 com.gen.code.config.GenCodeInfo#entity 为key, 配置包名路径的map, 指定生成文件名的map, 指定目录下的模板.
+     * 1.1 以 com.gen.code.config.GenCodeInfo#entity 为key,
+     * 指定包名路径的map-value是包名全路径, 指定生成文件名的map-value是生成的文件名, 指定目录下的模板map-value是使用的那个模板.
      * <p>
-     * 1.2 如果此时需要增加多个文件, 则需要先增加 map中的key, 然后增加 模板文件, 增加指定生成的文件名, 即可在配置好模板的前提下短时间生成代码.
+     * 1.2 如果此时需要增加多个文件, 则仅需要先增加 map中的key, 然后增加 模板文件, 增加指定生成的文件名, 即可在配置好模板的前提下短时间生成代码, 无需改动代码.
      * <p>
      * 1.3 以 模板文件为驱动(没有相应的模板则不进行生成代码), 循环处理不同的模板, 设置数据, 设置生成的文件路径, 以及文件名.
      * <p>
      * 1.4 对应关系如下-->>
      * <p>
-     * 模板: controller-> Controller.java.vm
+     * 模板map的key和value: controller-> Controller.java.vm
      * <p>
-     * 包名: controller-> com.authorization.life.system.api.controller
+     * 包名map的key和value: controller-> com.authorization.life.system.api.controller
      * <p>
-     * 文件名: controller-> Controller.java
+     * 文件名map的key和value: controller-> Controller.java
      * <p>
      * 注意: 此处的文件名是当前的类文件名的后缀, 最后压缩包中的文件名为:
      * <p>
@@ -50,7 +51,7 @@ public final class GenExecute {
      * <p>
      * 2.准备Velocity
      * <p>
-     * 3.写入文件
+     * 3.写入模板文件中数据,生成目标文件.
      * <p>
      * 4.打包为压缩包
      */
@@ -61,15 +62,23 @@ public final class GenExecute {
         dbInfo.setPassword("123456");
         dbInfo.setDriverClassName(DbInfo.MYSQL_DRIVER_CLASS_NAME);
 
+        //设置数据库信息
         GenCodeInfo genCodeInfo = new GenCodeInfo().setDbInfo(dbInfo);
 
         // 配置基本信息
         genDefault(genCodeInfo);
+
+        // 根据数据库中的信息生成目标代码文件
         new GenService().genCode(genCodeInfo);
 
         log.info("Success....");
     }
 
+    /**
+     * 基本配置信息
+     *
+     * @param genCodeInfo
+     */
     private static void genDefault(GenCodeInfo genCodeInfo) {
 
         genCodeInfo.setAuthor("code@code.com");
@@ -91,13 +100,13 @@ public final class GenExecute {
         genCodeInfo.setComments(comments);
         log.info("生成代码的表备注是....{}", comments);
 
-        // 类路径下默认的模板路径-此处必须加后缀斜杠
+        // 必须设置->类路径下默认的模板路径-此处必须加后缀斜杠
         genCodeInfo.setDefaultTempPath("template//");
 
-        // 指定类路径下的模板路径, 根据不同的指定, 获取不同的包名,生成不同的文件名,使用不同的模板文件
+        // 指定类路径下的模板路径, 根据不同的指定路径, 获取不同的包名,生成不同的文件名,使用不同的模板文件
 //        genCodeInfo.setSpecificPath("template//test//");
 
-        //包名-在模板中的import 使用此出配置的包名路径, 将生成最终文件所在的层级文件.
+        // 包名-在模板中的import 使用此出配置的包名路径, 将生成最终文件所在的层级文件.
         genCodeInfo.setPackageMap(getStudyWorkPackMap(genCodeInfo));
 
         //使用指定的文件名, 此处的文件名默认是 生成最终文件名的后缀, 结果是 当前所需生成的类名(ConfDataSource) + 文件名的后缀(Controller.java),
@@ -107,7 +116,7 @@ public final class GenExecute {
         //使用特定的目录下的模板
         genCodeInfo.setTemplatePathMap(getTempPathMap(genCodeInfo));
 
-        //生成的路径
+        //生成的文件输出绝对路径
         genCodeInfo.setGenPath("D://workspace//gen_code");
 
     }
