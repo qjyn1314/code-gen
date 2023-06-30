@@ -57,12 +57,12 @@ public final class GenExecute {
      */
     private static void genCodeByMysql() {
         DbInfo dbInfo = new DbInfo();
-        dbInfo.setJdbcUrl(DbInfo.getMysqlUrl("127.0.0.1", "3350", "sync_test"));
+        dbInfo.setJdbcUrl(DbInfo.getMysqlUrl("127.0.0.1", "3308", "eiss"));
         dbInfo.setUsername("root");
         dbInfo.setPassword("123456");
         dbInfo.setDriverClassName(DbInfo.MYSQL_DRIVER_CLASS_NAME);
 
-        //设置数据库信息
+        // 设置数据库信息
         GenCodeInfo genCodeInfo = new GenCodeInfo().setDbInfo(dbInfo);
 
         // 配置基本信息
@@ -83,19 +83,19 @@ public final class GenExecute {
 
         genCodeInfo.setAuthor("code@code.com");
 
-        String tableName = "lemd_emp";
+        String tableName = "jsbz_hq_system_sync";
         log.info("生成代码的表名是....{}", tableName);
         genCodeInfo.setTableName(tableName);
 
         // 表名前缀
-        genCodeInfo.setTablePrefix("lemd_");
+        genCodeInfo.setTablePrefix("jsbz_");
         // 手动指定实体类名
         genCodeInfo.setClassName("");
         // 手动指定实体类名(首字母小写)
         genCodeInfo.setLowerClassName("");
         // 手动指定控制层的请求路径
         genCodeInfo.setPathName("");
-
+        // TODO 需要手动设置 表的备注信息
         String comments = "数据源配置表";
         genCodeInfo.setComments(comments);
         log.info("生成代码的表备注是....{}", comments);
@@ -159,11 +159,11 @@ public final class GenExecute {
      */
     private static Map<String, String> getDefaultPackMap(GenCodeInfo genCodeInfo) {
         return MapUtil
-                .builder(GenCodeInfo.ENTITY, "com.authorization.life.flowable.infra.entity")
-                .put(GenCodeInfo.CONTROLLER, "com.authorization.life.flowable.api.controller")
-                .put(GenCodeInfo.SERVICE, "com.authorization.life.flowable.infra.service")
-                .put(GenCodeInfo.SERVICE_IMPL, "com.authorization.life.flowable.infra.service.impl")
-                .put(GenCodeInfo.MAPPER, "com.authorization.life.flowable.infra.mapper")
+                .builder(GenCodeInfo.ENTITY, "com.authorization.life.system.infra.entity")
+                .put(GenCodeInfo.CONTROLLER, "com.authorization.life.system.api.controller")
+                .put(GenCodeInfo.SERVICE, "com.authorization.life.system.infra.service")
+                .put(GenCodeInfo.SERVICE_IMPL, "com.authorization.life.system.infra.service.impl")
+                .put(GenCodeInfo.MAPPER, "com.authorization.life.system.infra.mapper")
                 .put(GenCodeInfo.MAPPER_XML, "mapper")
                 .build();
     }
