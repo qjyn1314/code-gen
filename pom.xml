@@ -14,12 +14,12 @@
         <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
         <HikariCP.version>5.0.1</HikariCP.version>
         <velocity.version>2.3</velocity.version>
-        <lombok.version>1.18.26</lombok.version>
-        <hutool.version>5.8.16</hutool.version>
+        <lombok.version>1.18.28</lombok.version>
+        <hutool.version>5.8.20</hutool.version>
 
         <slf4j.version>2.0.7</slf4j.version>
 
-        <mysql.version>8.0.32</mysql.version>
+        <mysql.version>8.0.33</mysql.version>
         <postgresql.version>42.6.0</postgresql.version>
 
     </properties>
