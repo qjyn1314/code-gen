@@ -43,11 +43,17 @@ public class GenService {
     public void genCode(GenCodeInfo genCodeInfo) {
         GenMapper genMapper = getGenMapper(genCodeInfo.getDbInfo());
         String tableName = genCodeInfo.getTableName();
-        Assert.notBlank(tableName, "请使用正确的表名。" );
+        Assert.notBlank(tableName, "请使用正确的表名。");
 
         //默认查询mysql数据库信息
-        Map<String, Object> table = genMapper.queryMysqlTable(tableName);
-        Assert.notNull(table, "未查找到表信息。" );
+        Map<String, Object> table = null;
+        try {
+            table = genMapper.queryMysqlTable(tableName);
+        } catch (Exception e) {
+            log.error("查询表结构信息异常, 请检查数据库链接信息是否正确.->{}", e.getMessage());
+            return;
+        }
+        Assert.notNull(table, "未查找到表信息。");
         log.info("表信息是...{}", JSONUtil.toJsonStr(table));
 
         List<Map<String, Object>> columns = genMapper.queryMysqlColumns(tableName);
@@ -62,10 +68,10 @@ public class GenService {
         log.info("用于生成代码所用到的数据->{}", JSONUtil.toJsonStr(tempDataMap));
 
         Map<String, String> templatePathMap = genCodeInfo.getTemplatePathMap();
-        Assert.notEmpty(templatePathMap, "获取不到模板文件。" );
+        Assert.notEmpty(templatePathMap, "获取不到模板文件。");
         // 设置velocity资源加载器
         VelocityInitializer.initVelocity();
-        log.info("VelocityInitializer initVelocity end" );
+        log.info("VelocityInitializer initVelocity end");
         // 将数据初始化到 VelocityContext 上下文中
         VelocityContext context = new VelocityContext(tempDataMap);
 
@@ -114,7 +120,7 @@ public class GenService {
 
     private void generatePath(GenCodeInfo genCodeInfo, ByteArrayOutputStream outputStream) {
         String genPath = genCodeInfo.getGenPath();
-        Assert.notBlank(genPath, "请确定生成文件所输出的文件夹。" );
+        Assert.notBlank(genPath, "请确定生成文件所输出的文件夹。");
         String tableName = genCodeInfo.getTableName();
         //创建文件夹
         File file = new File(genPath);
