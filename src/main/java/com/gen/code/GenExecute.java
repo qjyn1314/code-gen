@@ -57,7 +57,7 @@ public final class GenExecute {
      */
     private static void genCodeByMysql() {
         DbInfo dbInfo = new DbInfo();
-        dbInfo.setJdbcUrl(DbInfo.getMysqlUrl("127.0.0.1", "3308", "eiss"));
+        dbInfo.setJdbcUrl(DbInfo.getMysqlUrl("127.0.0.1", "3308", "evening"));
         dbInfo.setUsername("root");
         dbInfo.setPassword("123456");
         dbInfo.setDriverClassName(DbInfo.MYSQL_DRIVER_CLASS_NAME);
@@ -83,38 +83,37 @@ public final class GenExecute {
 
         genCodeInfo.setAuthor("code@code.com");
 
-        String tableName = "jsbz_hq_system_sync";
+        String comments = "数据源配置表";
+        genCodeInfo.setComments(comments);
+        log.info("生成代码的表备注是....{}", comments);
+
+        String tableName = "sys_user";
         log.info("生成代码的表名是....{}", tableName);
         genCodeInfo.setTableName(tableName);
 
         // 表名前缀
-        genCodeInfo.setTablePrefix("jsbz_");
+        genCodeInfo.setTablePrefix("");
         // 手动指定实体类名
         genCodeInfo.setClassName("");
         // 手动指定实体类名(首字母小写)
         genCodeInfo.setLowerClassName("");
         // 手动指定控制层的请求路径
         genCodeInfo.setPathName("");
-        // TODO 需要手动设置 表的备注信息
-        String comments = "数据源配置表";
-        genCodeInfo.setComments(comments);
-        log.info("生成代码的表备注是....{}", comments);
 
         // 必须设置->类路径下默认的模板路径-此处必须加后缀斜杠
         genCodeInfo.setDefaultTempPath("template//");
-
         // 指定类路径下的模板路径, 根据不同的指定路径, 获取不同的包名,生成不同的文件名,使用不同的模板文件
 //        genCodeInfo.setSpecificPath("template//test//");
 
-        // 包名-在模板中的import 使用此出配置的包名路径, 将生成最终文件所在的层级文件.
-        genCodeInfo.setPackageMap(getStudyWorkPackMap(genCodeInfo));
+        //使用特定的目录下的模板
+        genCodeInfo.setTemplatePathMap(getTempPathMap(genCodeInfo));
 
         //使用指定的文件名, 此处的文件名默认是 生成最终文件名的后缀, 结果是 当前所需生成的类名(ConfDataSource) + 文件名的后缀(Controller.java),
         // 如: controller -> Controller.java --> 最终文件名: ConfDataSourceController.java
         genCodeInfo.setFileMap(getFileMap(genCodeInfo));
 
-        //使用特定的目录下的模板
-        genCodeInfo.setTemplatePathMap(getTempPathMap(genCodeInfo));
+        // 包名-在模板中的import 使用此出配置的包名路径, 将生成最终文件所在的层级文件.
+        genCodeInfo.setPackageMap(getStudyWorkPackMap(genCodeInfo));
 
         //生成的文件输出绝对路径
         genCodeInfo.setGenPath("D://workspace//gen_code");
@@ -159,11 +158,11 @@ public final class GenExecute {
      */
     private static Map<String, String> getDefaultPackMap(GenCodeInfo genCodeInfo) {
         return MapUtil
-                .builder(GenCodeInfo.ENTITY, "com.authorization.life.system.infra.entity")
-                .put(GenCodeInfo.CONTROLLER, "com.authorization.life.system.api.controller")
-                .put(GenCodeInfo.SERVICE, "com.authorization.life.system.infra.service")
-                .put(GenCodeInfo.SERVICE_IMPL, "com.authorization.life.system.infra.service.impl")
-                .put(GenCodeInfo.MAPPER, "com.authorization.life.system.infra.mapper")
+                .builder(GenCodeInfo.ENTITY, "com.authorization.life.flowable.infra.entity")
+                .put(GenCodeInfo.CONTROLLER, "com.authorization.life.flowable.api.controller")
+                .put(GenCodeInfo.SERVICE, "com.authorization.life.flowable.infra.service")
+                .put(GenCodeInfo.SERVICE_IMPL, "com.authorization.life.flowable.infra.service.impl")
+                .put(GenCodeInfo.MAPPER, "com.authorization.life.flowable.infra.mapper")
                 .put(GenCodeInfo.MAPPER_XML, "mapper")
                 .build();
     }
