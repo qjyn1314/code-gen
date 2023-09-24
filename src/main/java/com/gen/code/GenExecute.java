@@ -83,10 +83,11 @@ public final class GenExecute {
 
         genCodeInfo.setAuthor("code@code.com");
 
+        // TODO 如果表没有注释则手动自定义备注
         String comments = "数据源配置表";
         genCodeInfo.setComments(comments);
         log.info("生成代码的表备注是....{}", comments);
-
+        // TODO 必须指定表名
         String tableName = "sys_user";
         log.info("生成代码的表名是....{}", tableName);
         genCodeInfo.setTableName(tableName);
@@ -100,18 +101,22 @@ public final class GenExecute {
         // 手动指定控制层的请求路径
         genCodeInfo.setPathName("");
 
+        // TODO 用于指定代码生成使用的是哪个目录下的文件
         // 必须设置->类路径下默认的模板路径-此处必须加后缀斜杠
         genCodeInfo.setDefaultTempPath("template//");
         // 指定类路径下的模板路径, 根据不同的指定路径, 获取不同的包名,生成不同的文件名,使用不同的模板文件
 //        genCodeInfo.setSpecificPath("template//test//");
 
+        // TODO 用于指定使用目录下的哪些模板
         //使用特定的目录下的模板
         genCodeInfo.setTemplatePathMap(getTempPathMap(genCodeInfo));
 
+        // TODO 用于指定模板对应生成的文件名后缀
         //使用指定的文件名, 此处的文件名默认是 生成最终文件名的后缀, 结果是 当前所需生成的类名(ConfDataSource) + 文件名的后缀(Controller.java),
         // 如: controller -> Controller.java --> 最终文件名: ConfDataSourceController.java
         genCodeInfo.setFileMap(getFileMap(genCodeInfo));
 
+        // TODO 用于指定模板对应生成文件时生成的路径
         // 包名-在模板中的import 使用此出配置的包名路径, 将生成最终文件所在的层级文件.
         genCodeInfo.setPackageMap(getStudyWorkPackMap(genCodeInfo));
 
