@@ -37,4 +37,12 @@ public class DbInfo extends HikariDataSource implements Serializable {
         return StrUtil.format(POSTGRESQL_URL_FORMAT, MapUtil.builder(IP, ip).put(PORT, port).put(DATABASE, database).put(SCHEMA, schema).build());
     }
 
+    private DbInfo() {
+        this.setMaximumPoolSize(1);
+    }
+
+    public static DbInfo me() {
+        return new DbInfo();
+    }
+
 }

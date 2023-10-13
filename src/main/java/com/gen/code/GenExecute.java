@@ -56,7 +56,7 @@ public final class GenExecute {
      * 4.打包为压缩包
      */
     private static void genCodeByMysql() {
-        DbInfo dbInfo = new DbInfo();
+        DbInfo dbInfo = DbInfo.me();
         dbInfo.setJdbcUrl(DbInfo.getMysqlUrl("127.0.0.1", "3308", "evening"));
         dbInfo.setUsername("root");
         dbInfo.setPassword("123456");
@@ -116,12 +116,12 @@ public final class GenExecute {
         // 如: controller -> Controller.java --> 最终文件名: ConfDataSourceController.java
         genCodeInfo.setFileMap(getFileMap(genCodeInfo));
 
-        // TODO 用于指定模板对应生成文件时生成的路径
+        // TODO 用于指定模板对应生成文件时生成的包路径
         // 包名-在模板中的import 使用此出配置的包名路径, 将生成最终文件所在的层级文件.
         genCodeInfo.setPackageMap(getStudyWorkPackMap(genCodeInfo));
 
         //生成的文件输出绝对路径
-        genCodeInfo.setGenPath("D://workspace//gen_code");
+        genCodeInfo.setGenPath("D:/workspace/gen_code/");
 
     }
 

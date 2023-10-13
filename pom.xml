@@ -13,7 +13,7 @@
         <java.version>17</java.version>
 
         <slf4j.version>2.0.9</slf4j.version>
-        <springboot-loging.version>3.1.3</springboot-loging.version>
+        <springboot-loging.version>3.1.4</springboot-loging.version>
 
         <lombok.version>1.18.30</lombok.version>
         <hutool.version>5.8.22</hutool.version>
